@@ -31,6 +31,8 @@ void app_read_REG_ANALOG_INPUT(void);
 void app_read_REG_STOP_SWITCH(void);
 void app_read_REG_MOVING(void);
 void app_read_REG_IMMEDIATE_PULSES(void);
+void app_read_REG_ENDSTOP_SWITCH(void);
+void app_read_REG_MOTOR_BRAKE(void);
 
 
 bool app_write_REG_CONTROL(void *a);
@@ -44,6 +46,8 @@ bool app_write_REG_ANALOG_INPUT(void *a);
 bool app_write_REG_STOP_SWITCH(void *a);
 bool app_write_REG_MOVING(void *a);
 bool app_write_REG_IMMEDIATE_PULSES(void *a);
+bool app_write_REG_ENDSTOP_SWITCH(void *a);
+bool app_write_REG_MOTOR_BRAKE(void *a);
 
 
 #endif /* _APP_FUNCTIONS_H_ */

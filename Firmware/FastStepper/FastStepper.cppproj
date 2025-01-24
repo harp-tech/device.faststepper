@@ -34,16 +34,16 @@
         <documentation help="" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtool>com.atmel.avrdbg.tool.ispmk2</avrtool>
     <avrtoolinterface>PDI</avrtoolinterface>
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <PdiClock>4000000</PdiClock>
+          <PdiClock>0</PdiClock>
         </InterfaceProperties>
         <InterfaceName>PDI</InterfaceName>
       </ToolOptions>
@@ -53,9 +53,9 @@
     </com_atmel_avrdbg_tool_atmelice>
     <ResetRule>0</ResetRule>
     <EraseKey />
-    <avrtoolserialnumber>J42700046659</avrtoolserialnumber>
+    <avrtoolserialnumber>000200036994</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9541</avrdeviceexpectedsignature>
-    <avrtoolinterfaceclock>4000000</avrtoolinterfaceclock>
+    <avrtoolinterfaceclock>0</avrtoolinterfaceclock>
     <custom>
       <ToolOptions>
         <InterfaceProperties>
@@ -79,11 +79,21 @@
       </ToolNumber>
       <ToolName xmlns="">Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
+    <com_atmel_avrdbg_tool_ispmk2>
+      <ToolOptions>
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>PDI</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.ispmk2</ToolType>
+      <ToolNumber>000200036994</ToolNumber>
+      <ToolName>AVRISP mkII</ToolName>
+    </com_atmel_avrdbg_tool_ispmk2>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGccCpp>
-        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
+        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
         <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -99,6 +109,7 @@
         <avrgcc.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -115,6 +126,7 @@
         <avrgcccpp.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcccpp.compiler.directories.IncludePaths>
         <avrgcccpp.compiler.optimization.level>Optimize for size (-Os)</avrgcccpp.compiler.optimization.level>
@@ -127,13 +139,10 @@
             <Value>libATxmega32A4U-1.10.a</Value>
           </ListValues>
         </avrgcccpp.linker.libraries.Libraries>
-        <avrgcccpp.linker.libraries.LibrarySearchPaths>
-          <ListValues>
-          </ListValues>
-        </avrgcccpp.linker.libraries.LibrarySearchPaths>
         <avrgcccpp.assembler.general.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcccpp.assembler.general.IncludePaths>
       </AvrGccCpp>
@@ -142,7 +151,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGccCpp>
-        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
+        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
         <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
@@ -158,6 +167,7 @@
         <avrgcc.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
@@ -175,6 +185,7 @@
         <avrgcccpp.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcccpp.compiler.directories.IncludePaths>
         <avrgcccpp.compiler.optimization.level>Optimize most (-O3)</avrgcccpp.compiler.optimization.level>
@@ -195,6 +206,7 @@
         <avrgcccpp.assembler.general.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.1.68\include</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.3.146\include\</Value>
           </ListValues>
         </avrgcccpp.assembler.general.IncludePaths>
         <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
@@ -205,16 +217,31 @@
     <Compile Include="analog_input.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="analog_input.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="app.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="app.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="app_funcs.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="app_funcs.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="app_ios_and_regs.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="app_ios_and_regs.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="encoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="encoder.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="interrupts.c">
@@ -224,6 +251,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="stepper_motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="stepper_motor.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

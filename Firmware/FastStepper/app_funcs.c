@@ -21,7 +21,9 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_ANALOG_INPUT,
 	&app_read_REG_STOP_SWITCH,
 	&app_read_REG_MOVING,
-	&app_read_REG_IMMEDIATE_PULSES
+	&app_read_REG_IMMEDIATE_PULSES,
+	&app_read_REG_ENDSTOP_SWITCH,	
+	&app_read_REG_MOTOR_BRAKE 
 };
 
 bool (*app_func_wr_pointer[])(void*) = {
@@ -35,7 +37,9 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_ANALOG_INPUT,
 	&app_write_REG_STOP_SWITCH,
 	&app_write_REG_MOVING,
-	&app_write_REG_IMMEDIATE_PULSES
+	&app_write_REG_IMMEDIATE_PULSES,
+	&app_write_REG_ENDSTOP_SWITCH,
+	&app_write_REG_MOTOR_BRAKE
 };
 
 
@@ -350,6 +354,44 @@ bool app_write_REG_IMMEDIATE_PULSES(void *a)
 	}
 
 	app_regs.REG_IMMEDIATE_PULSES = reg;
+	
+	return true;
+}
+
+
+/************************************************************************/
+/* REG_ENDSTOP_SWITCH                                                   */
+/************************************************************************/
+void app_read_REG_ENDSTOP_SWITCH(void)
+{
+	app_regs.REG_ENDSTOP_SWITCH = (read_ENDSTOP_SWITCH) ? 0 : B_ENDSTOP_SWITCH;
+}
+
+bool app_write_REG_ENDSTOP_SWITCH(void *a)
+{
+	return false;
+}
+
+
+/************************************************************************/
+/* REG_MOTOR_BRAKE                                                      */
+/************************************************************************/
+void app_read_REG_MOTOR_BRAKE(void)
+{
+}
+
+bool app_write_REG_MOTOR_BRAKE(void *a)
+{
+	uint8_t reg = *((uint8_t*)a);
+	
+	if (reg)
+	{
+		set_MOTOR_ENABLE;
+	}
+	else
+	{
+		clr_MOTOR_ENABLE;
+	}	
 	
 	return true;
 }

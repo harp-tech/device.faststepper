@@ -10,6 +10,13 @@ void init_ios(void);
 
 #define read_STOP_SWITCH read_io(PORTB, 0)      // STOP_SWITCH
 
+
+// ENDSTOP_SWITCH        Description: Indicates the motor reached the initial/final position of the movement
+
+#define read_ENDSTOP_SWITCH read_io(PORTC, 7)   // ENDSTOP_SWITCH
+
+
+
 /************************************************************************/
 /* Definition of output pins                                            */
 /************************************************************************/
@@ -36,6 +43,15 @@ void init_ios(void);
 #define read_MOTOR_DIRECTION read_io(PORTC, 6)
 
 
+// MOTOR_BRAKE        Description: Sets the state of the motor brake
+
+/* MOTOR_BRAKE */
+#define set_MOTOR_BRAKE clear_io(PORTB, 3)
+#define clr_MOTOR_BRAKE set_io(PORTB, 3)
+#define tgl_MOTOR_BRAKE toggle_io(PORTB, 3)
+#define read_MOTOR_BRAKE read_io(PORTB, 3)
+
+
 /************************************************************************/
 /* Registers' structure                                                 */
 /************************************************************************/
@@ -52,6 +68,8 @@ typedef struct
 	uint8_t REG_STOP_SWITCH;
 	uint8_t REG_MOVING;
 	int16_t REG_IMMEDIATE_PULSES;
+	uint8_t REG_ENDSTOP_SWITCH;
+	uint8_t REG_MOTOR_BRAKE;
 } AppRegs;
 
 /************************************************************************/
@@ -68,7 +86,9 @@ typedef struct
 #define ADD_REG_ANALOG_INPUT                39 // I16    Contains the reading of the analog input.
 #define ADD_REG_STOP_SWITCH                 40 // U8     Contains the state of the stop switch.
 #define ADD_REG_MOVING                      41 // U8     Contains the state of the motor.
-#define ADD_REG_IMMEDIATE_PULSES            42 // I16    Sets immediately the motor's pulse interval. The value's signal defines the direction.
+#define ADD_REG_IMMEDIATE_PULSES            42 // I32    Sets immediately the motor's pulse interval. The value's signal defines the direction.
+#define ADD_REG_ENDSTOP_SWITCH              43 // U8     Contains the state of the endstop switch.
+#define ADD_REG_MOTOR_BRAKE                 44 // U8     Sets the state of the motor brake output.
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -78,8 +98,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x2A
-#define APP_NBYTES_OF_REG_BANK              21
+#define APP_REGS_ADD_MAX                    0x2C
+#define APP_NBYTES_OF_REG_BANK              25
 
 /************************************************************************/
 /* Registers' bits                                                      */
@@ -93,5 +113,7 @@ typedef struct
 #define B_RESET_QUAD_ENCODER               (1<<6)       // 
 #define B_STOP_SWITCH                      (1<<0)       // 
 #define B_IS_MOVING                        (1<<0)       // 
+#define B_ENDSTOP_SWITCH                   (1<<0)       //
+#define B_MOTOR_BRAKE                      (1<<0)       //
 
 #endif /* _APP_REGS_H_ */

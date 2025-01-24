@@ -32,14 +32,14 @@ void hwbp_app_initialize(void)
 {
     /* Define versions */
     uint8_t hwH = 1;
-    uint8_t hwL = 0;
-    uint8_t fwH = 1;
-    uint8_t fwL = 0;
+    uint8_t hwL = 3;
+    uint8_t fwH = 0;
+    uint8_t fwL = 6;
     uint8_t ass = 0;
     
    	/* Start core */
     core_func_start_core(
-        2120,
+        1225,
         hwH, hwL,
         fwH, fwL,
         ass,
@@ -124,6 +124,7 @@ void core_callback_registers_were_reinitialized(void)
 	
 	/* Read external states */
 	app_read_REG_STOP_SWITCH();
+	app_read_REG_ENDSTOP_SWITCH();
 }
 
 /************************************************************************/
@@ -158,8 +159,11 @@ void core_callback_device_to_speed(void) {}
 /* Callbacks: 1 ms timer                                                */
 /************************************************************************/
 int16_t quadrature_previous_value = 0;
+int8_t endstop_previous_value = -1;
 
 extern bool send_motor_stopped_notification;
+
+extern bool motor_is_running;
 
 void core_callback_t_before_exec(void)
 {
@@ -191,6 +195,31 @@ void core_callback_t_before_exec(void)
 		app_regs.REG_MOVING = 0;
 		core_func_send_event(ADD_REG_MOVING, true);
 	}
+	
+	/* Check if the motor endstop state changed */
+	int8_t endstop_value = read_ENDSTOP_SWITCH;
+	if (endstop_value != endstop_previous_value)
+	{
+		endstop_previous_value = endstop_value;
+		if (endstop_value)
+		{
+			/* Update register and send event */
+			app_regs.REG_ENDSTOP_SWITCH = 0;
+			core_func_send_event(ADD_REG_ENDSTOP_SWITCH, true);
+		}
+		else
+		{
+			/* Stop motor */
+			timer_type0_stop(&TCC0);
+			motor_is_running = false;
+	
+			/* Update register and send event */
+			app_regs.REG_ENDSTOP_SWITCH = B_ENDSTOP_SWITCH;
+			core_func_send_event(ADD_REG_ENDSTOP_SWITCH, true);
+		}
+		
+	}
+	
 }
 void core_callback_t_after_exec(void) {}
 void core_callback_t_new_second(void) {}

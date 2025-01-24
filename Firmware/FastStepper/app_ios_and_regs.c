@@ -9,6 +9,8 @@ void init_ios(void)
 {	/* Configure input pins */
 	io_pin2in(&PORTB, 0, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // STOP_SWITCH
 	io_pin2in(&PORTD, 2, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // RX
+	io_pin2in(&PORTC, 7, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // ENDSTOP_SWITCH
+
 
 	/* Configure input interrupts */
 	io_set_int(&PORTB, INT_LEVEL_LOW, 0, (1<<0), false);                 // STOP_SWITCH
@@ -18,10 +20,15 @@ void init_ios(void)
 	io_pin2out(&PORTC, 0, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_PULSE
 	io_pin2out(&PORTC, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_DIRECTION
 
+	io_pin2out(&PORTB, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_BRAKE
+
 	/* Initialize output pins */
 	clr_MOTOR_ENABLE;
 	clr_MOTOR_PULSE;
 	clr_MOTOR_DIRECTION;
+	
+	/* @TODO: Confirm if this one should start high or low */	
+	clr_MOTOR_BRAKE;
 }
 
 /************************************************************************/
@@ -40,10 +47,14 @@ uint8_t app_regs_type[] = {
 	TYPE_I16,
 	TYPE_U8,
 	TYPE_U8,
-	TYPE_I16
+	TYPE_I16,
+	TYPE_U8,
+	TYPE_U8
 };
 
 uint16_t app_regs_n_elements[] = {
+	1,
+	1,
 	1,
 	1,
 	1,
@@ -68,5 +79,7 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_ANALOG_INPUT),
 	(uint8_t*)(&app_regs.REG_STOP_SWITCH),
 	(uint8_t*)(&app_regs.REG_MOVING),
-	(uint8_t*)(&app_regs.REG_IMMEDIATE_PULSES)
+	(uint8_t*)(&app_regs.REG_IMMEDIATE_PULSES),
+	(uint8_t*)(&app_regs.REG_ENDSTOP_SWITCH),
+	(uint8_t*)(&app_regs.REG_MOTOR_BRAKE)
 };
