@@ -13,7 +13,7 @@ void init_ios(void);
 
 // ENDSTOP_SWITCH        Description: Indicates the motor reached the initial/final position of the movement
 
-#define read_ENDSTOP_SWITCH read_io(PORTC, 7)   // ENDSTOP_SWITCH
+#define read_HOME_SWITCH read_io(PORTC, 7)		// HOME_SWITCH
 
 
 
@@ -42,14 +42,23 @@ void init_ios(void);
 #define tgl_MOTOR_DIRECTION toggle_io(PORTC, 6)
 #define read_MOTOR_DIRECTION read_io(PORTC, 6)
 
-
-// MOTOR_BRAKE        Description: Sets the state of the motor brake
-
 /* MOTOR_BRAKE */
 #define set_MOTOR_BRAKE clear_io(PORTB, 3)
 #define clr_MOTOR_BRAKE set_io(PORTB, 3)
 #define tgl_MOTOR_BRAKE toggle_io(PORTB, 3)
 #define read_MOTOR_BRAKE read_io(PORTB, 3)
+
+/* OUTPUT_0 */
+#define set_OUTPUT_0 set_io(PORTB, 1)
+#define clr_OUTPUT_0 clear_io(PORTB, 1)
+#define tgl_OUTPUT_0 toggle_io(PORTB, 1)
+#define read_OUTPUT_0 read_io(PORTB, 1)
+
+/* OUTPUT_1 */
+#define set_OUTPUT_1 set_io(PORTA, 7)
+#define clr_OUTPUT_1 clear_io(PORTA, 7)
+#define tgl_OUTPUT_1 toggle_io(PORTA, 7)
+#define read_OUTPUT_1 read_io(PORTA, 7)
 
 
 /************************************************************************/
@@ -57,38 +66,70 @@ void init_ios(void);
 /************************************************************************/
 typedef struct
 {
-	uint8_t REG_CONTROL;
-	int32_t REG_PULSES;
-	uint16_t REG_NOMINAL_PULSE_INTERVAL;
-	uint16_t REG_INITIAL_PULSE_INTERVAL;
-	uint16_t REG_PULSE_STEP_INTERVAL;
-	uint16_t REG_PULSE_PERIOD;
+	/* General control registers */
+	uint16_t REG_CONTROL; 
+	/* Specific hardware registers */
 	int16_t REG_ENCODER;
 	int16_t REG_ANALOG_INPUT;
+	/* Motor specific registers */	
 	uint8_t REG_STOP_SWITCH;
-	uint8_t REG_MOVING;
-	int16_t REG_IMMEDIATE_PULSES;
-	uint8_t REG_ENDSTOP_SWITCH;
 	uint8_t REG_MOTOR_BRAKE;
+	uint8_t REG_MOVING;
+	/* Direct motor control */	
+	uint8_t REG_STOP_MOVEMENT;
+	int32_t REG_DIRECT_VELOCITY;
+	/* Accelerated motor control */
+	int32_t REG_MOVE_TO;
+	uint8_t REG_MOVE_TO_EVENTS;	
+	uint16_t REG_MIN_VELOCITY;
+	uint16_t REG_MAX_VELOCITY;
+	int32_t REG_ACCELERATION;
+	int32_t REG_DECELERATION;
+	int32_t REG_ACCELERATION_JERK;
+	int32_t REG_DECELERATION_JERK;
+	/* Homing control */
+	int32_t REG_HOME_STEPS;
+	uint8_t REG_HOME_STEPS_EVENTS;
+	uint32_t REG_HOME_VELOCITY;
+	uint8_t REG_HOME_SWITCH;
+
 } AppRegs;
 
 /************************************************************************/
 /* Registers' address                                                   */
 /************************************************************************/
-/* Registers */
-#define ADD_REG_CONTROL                     32 // U8     Controls the device's modules.
-#define ADD_REG_PULSES                      33 // I32    Sends the number of pulses written in this register and set the direction according to the number's signal.
-#define ADD_REG_NOMINAL_PULSE_INTERVAL      34 // U16    Sets the motor's pulse interval when running at nominal speed.
-#define ADD_REG_INITIAL_PULSE_INTERVAL      35 // U16    Sets the motor's maximum pulse interval, used as the first and last pulse interval of a rotation.
-#define ADD_REG_PULSE_STEP_INTERVAL         36 // U16    Sets the acceleration. The pulse's interval is decreased by this value when accelerating and increased when de-accelerating.
-#define ADD_REG_PULSE_PERIOD                37 // U16    Sets the period of the pulse.
-#define ADD_REG_ENCODER                     38 // I16    Contains the reading of the quadrature encoder.
-#define ADD_REG_ANALOG_INPUT                39 // I16    Contains the reading of the analog input.
-#define ADD_REG_STOP_SWITCH                 40 // U8     Contains the state of the stop switch.
-#define ADD_REG_MOVING                      41 // U8     Contains the state of the motor.
-#define ADD_REG_IMMEDIATE_PULSES            42 // I32    Sets immediately the motor's pulse interval. The value's signal defines the direction.
-#define ADD_REG_ENDSTOP_SWITCH              43 // U8     Contains the state of the endstop switch.
-#define ADD_REG_MOTOR_BRAKE                 44 // U8     Sets the state of the motor brake output.
+/* General control registers */
+#define ADD_REG_CONTROL                     32 // U16    Controls the device's modules. (bitmask defined below)
+/* Specific hardware registers */
+#define ADD_REG_ENCODER                     33 // I16    Contains the reading of the quadrature encoder.
+#define ADD_REG_ANALOG_INPUT                34 // I16    Contains the reading of the analog input.
+/* Motor specific registers */
+#define ADD_REG_STOP_SWITCH                 35 // U8     Contains the state of the stop switch.
+#define ADD_REG_MOTOR_BRAKE                 36 // U8     Sets the state of the motor brake output.
+#define ADD_REG_MOVING		                37 // U8     Contains the state of the motor movement.
+
+/* Direct motor control */
+#define ADD_REG_STOP_MOVEMENT               38 // U8     Instantly stops the motor movement.
+#define ADD_REG_DIRECT_VELOCITY             39 // I32    Instantly start moving at a specific speed and direction according to the register's value and signal.
+
+/* Accelerated motor control */
+#define ADD_REG_MOVE_TO                     40 // I32    Moves to a specific position, using the velocity, acceleration and jerk configurations.
+#define ADD_REG_MOVE_TO_EVENTS              41 // U8     Reports possible events regarding the execution of the ADD_REG_MOVE_TO register.
+#define ADD_REG_MIN_VELOCITY                42 // U16    Sets the minimum velocity for the movement (steps/s)
+#define ADD_REG_MAX_VELOCITY                43 // U16    Sets the maximum velocity for the movement (steps/s)
+#define ADD_REG_ACCELERATION                44 // I32    Sets the acceleration for the movement (steps/s^2)
+#define ADD_REG_DECELERATION                45 // I32    Sets the acceleration for the movement (steps/s^2)
+#define ADD_REG_ACCELERATION_JERK           46 // I32    Sets the jerk for the acceleration part of the movement (steps/s^3)
+#define ADD_REG_DECELERATION_JERK           47 // I32    Sets the jerk for the deceleration part of the movement (steps/s^3)
+
+/* Homing control */
+#define ADD_REG_HOME_STEPS                  48 // I32    Moves a specific number of steps in a direction according to the register's value and signal, attempting to perform a homing routine.											   
+											   // 	     Resets the current position to 0 when the home sensor is hit. The home steps value should be slightly over than the longest possible movement.
+#define ADD_REG_HOME_STEPS_EVENTS           49 // U8     Reports possible events regarding the execution of the REG_HOME_STEPS register.
+#define ADD_REG_HOME_VELOCITY               50 // U32    Sets the fixed velocity for the homing movement (steps/s)
+#define ADD_REG_HOME_SWITCH                 51 // U8     Contains the state of the home switch.
+
+
 
 /************************************************************************/
 /* PWM Generator registers' memory limits                               */
@@ -98,22 +139,31 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x2C
-#define APP_NBYTES_OF_REG_BANK              25
+#define APP_REGS_ADD_MAX                    0x33
+#define APP_NBYTES_OF_REG_BANK              53
 
 /************************************************************************/
 /* Registers' bits                                                      */
 /************************************************************************/
-#define B_ENABLE_MOTOR                     (1<<0)       // 
-#define B_DISABLE_MOTOR                    (1<<1)       // 
-#define B_ENABLE_ANALOG_IN                 (1<<2)       // 
-#define B_DISABLE_ANALOG_IN                (1<<3)       // 
-#define B_ENABLE_QUAD_ENCODER              (1<<4)       // 
-#define B_DISABLE_QUAD_ENCODER             (1<<5)       // 
-#define B_RESET_QUAD_ENCODER               (1<<6)       // 
-#define B_STOP_SWITCH                      (1<<0)       // 
-#define B_IS_MOVING                        (1<<0)       // 
-#define B_ENDSTOP_SWITCH                   (1<<0)       //
-#define B_MOTOR_BRAKE                      (1<<0)       //
+#define REG_CONTROL_B_ENABLE_MOTOR                     (1<<0)       // 
+#define REG_CONTROL_B_DISABLE_MOTOR                    (1<<1)       // 
+#define REG_CONTROL_B_ENABLE_ANALOG_IN                 (1<<2)       // 
+#define REG_CONTROL_B_DISABLE_ANALOG_IN                (1<<3)       // 
+#define REG_CONTROL_B_ENABLE_QUAD_ENCODER              (1<<4)       // 
+#define REG_CONTROL_B_DISABLE_QUAD_ENCODER             (1<<5)       // 
+#define REG_CONTROL_B_RESET_QUAD_ENCODER               (1<<6)       // 
+#define REG_CONTROL_B_ENABLE_HOMING                    (1<<7)       //
+#define REG_CONTROL_B_DISABLE_HOMING                   (1<<8)       //
+
+#define REG_HOME_STEPS_EVENTS_B_HOMING_SUCCESSFUL      (1<<0)       // Homing terminated successfully
+#define REG_HOME_STEPS_EVENTS_B_HOMING_FAILED          (1<<1)       // Homing failed, motor moved but home position was not reached
+#define REG_HOME_STEPS_EVENTS_B_ALREADY_HOME           (1<<2)       // Tried homing while already at home position
+#define REG_HOME_STEPS_EVENTS_B_UNEXPECTED_HOME        (1<<3)       // Home sensor triggered unexpectedly
+
+
+#define REG_STOP_SWITCH_B_STOP_SWITCH                 (1<<0)		// 
+#define B_IS_MOVING                        (1<<0)					// 
+#define REG_HOME_SWITCH_B_HOME_SWITCH                  (1<<0)       //
+#define B_MOTOR_BRAKE                      (1<<0)					//
 
 #endif /* _APP_REGS_H_ */

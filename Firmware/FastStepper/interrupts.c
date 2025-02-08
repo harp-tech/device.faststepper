@@ -51,12 +51,13 @@ ISR(PORTB_INT0_vect, ISR_NAKED)
 		set_MOTOR_ENABLE;
 		
 		/* Update register and send event */
-		app_regs.REG_STOP_SWITCH = B_STOP_SWITCH;
+		app_regs.REG_STOP_SWITCH = REG_STOP_SWITCH_B_STOP_SWITCH;
 		core_func_send_event(ADD_REG_STOP_SWITCH, true);
 	}
 	
 	reti();
 }
+
 
 /************************************************************************/
 /* ADC                                                                  */
@@ -69,47 +70,3 @@ ISR(ADCA_CH0_vect, ISR_NAKED)
 	reti();
 }
 
-/************************************************************************/
-/* EXTERNAL MOTOR CONTROL                                               */
-/************************************************************************/
-bool external_control_first_byte = true;
-int16_t motor_pulse_interval;
-
-ISR(USARTD0_RXC_vect, ISR_NAKED)
-{
-	if (external_control_first_byte)
-	{
-		external_control_first_byte = false;
-		
-		motor_pulse_interval = USARTD0_DATA;
-		
-		timer_type0_enable(&TCD0, TIMER_PRESCALER_DIV64, 100, INT_LEVEL_LOW);	// 200 us
-	}
-	else
-	{
-		external_control_first_byte = true;
-		
-		int16_t temp = USARTD0_DATA;
-		
-		motor_pulse_interval |= (temp << 8) & 0xFF00;
-		
-		timer_type0_stop(&TCD0);
-		
-		app_regs.REG_ANALOG_INPUT = motor_pulse_interval;
-		core_func_send_event(ADD_REG_ANALOG_INPUT, true);
-		
-		app_write_REG_IMMEDIATE_PULSES(&motor_pulse_interval);
-	}
-	
-	reti();
-}
-
-
-ISR(TCD0_OVF_vect, ISR_NAKED)
-{
-	external_control_first_byte = true;
-	
-	timer_type0_stop(&TCD0);
-	
-	reti();
-}

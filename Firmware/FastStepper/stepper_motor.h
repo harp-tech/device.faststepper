@@ -11,14 +11,27 @@
 	#define false 0
 #endif
 
-void update_nominal_pulse_interval (uint16_t time_us);
-void update_initial_pulse_interval (uint16_t time_us);
-void update_pulse_step_interval (uint16_t time_us);
-void update_pulse_period (uint16_t time_us);
+// Enumeration to specify the status of the current movement
+enum MovementStatus {MOVEMENT_STATUS_STOPPED, MOVEMENT_STATUS_ACCELERATING, MOVEMENT_STATUS_DECELERATING, MOVEMENT_STATUS_CONSTANT_VELOCITY, MOVEMENT_STATUS_HOMING};
 
-void start_rotation (int32_t requested_steps);
-void stop_rotation (void);
 
-int32_t user_sent_request (int32_t requested_steps);
+// Move the motor with a specific fixed interval between each step
+void set_motor_step_period(int32_t period);
+
+// Move the motor to a specific position
+void move_to_target_position(int32_t target_position);
+
+// Move the motor to the home position (where the endstop switch activates)
+void move_to_home(int32_t homing_distance);
+
+// Calculate the braking distance necessary to go from the the current speed to the minimum speed
+float calculate_braking_distance();
+
+// Update the current velocity of the motor, based on the acceleration and jerk settings
+void update_motor_velocity();
+
+// Immediately stop the motor 
+void stop_motor();
+
 
 #endif /* _STEPPER_MOTOR_H_ */

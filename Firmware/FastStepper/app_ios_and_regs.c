@@ -11,7 +11,6 @@ void init_ios(void)
 	io_pin2in(&PORTD, 2, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // RX
 	io_pin2in(&PORTC, 7, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // ENDSTOP_SWITCH
 
-
 	/* Configure input interrupts */
 	io_set_int(&PORTB, INT_LEVEL_LOW, 0, (1<<0), false);                 // STOP_SWITCH
 
@@ -21,6 +20,11 @@ void init_ios(void)
 	io_pin2out(&PORTC, 6, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_DIRECTION
 
 	io_pin2out(&PORTB, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_BRAKE
+
+
+	io_pin2out(&PORTB, 1, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // GENERIC OUTPUT 0
+	io_pin2out(&PORTA, 7, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // GENERIC OUTPUT 1
+
 
 	/* Initialize output pins */
 	clr_MOTOR_ENABLE;
@@ -37,18 +41,31 @@ void init_ios(void)
 AppRegs app_regs;
 
 uint8_t app_regs_type[] = {
+	/* General control registers */
+	TYPE_U16,
+	/* Specific hardware registers */
+	TYPE_I16,
+	TYPE_I16,
+	/* Motor specific registers */
+	TYPE_U8,
+	TYPE_U8,
+	TYPE_U8,
+	/* Direct motor control */
 	TYPE_U8,
 	TYPE_I32,
-	TYPE_U16,
-	TYPE_U16,
-	TYPE_U16,
-	TYPE_U16,
-	TYPE_I16,
-	TYPE_I16,
+	/* Accelerated motor control */	
+	TYPE_I32,
 	TYPE_U8,
+	TYPE_U16,
+	TYPE_U16,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	TYPE_I32,
+	/* Homing control */	
+	TYPE_I32,
 	TYPE_U8,
-	TYPE_I16,
-	TYPE_U8,
+	TYPE_U32,
 	TYPE_U8
 };
 
@@ -65,21 +82,42 @@ uint16_t app_regs_n_elements[] = {
 	1,
 	1,
 	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
 	1
 };
 
+
 uint8_t *app_regs_pointer[] = {
+	/* General control registers */
 	(uint8_t*)(&app_regs.REG_CONTROL),
-	(uint8_t*)(&app_regs.REG_PULSES),
-	(uint8_t*)(&app_regs.REG_NOMINAL_PULSE_INTERVAL),
-	(uint8_t*)(&app_regs.REG_INITIAL_PULSE_INTERVAL),
-	(uint8_t*)(&app_regs.REG_PULSE_STEP_INTERVAL),
-	(uint8_t*)(&app_regs.REG_PULSE_PERIOD),
+	/* Specific hardware registers */
 	(uint8_t*)(&app_regs.REG_ENCODER),
 	(uint8_t*)(&app_regs.REG_ANALOG_INPUT),
+	/* Motor specific registers */
 	(uint8_t*)(&app_regs.REG_STOP_SWITCH),
+	(uint8_t*)(&app_regs.REG_MOTOR_BRAKE),
 	(uint8_t*)(&app_regs.REG_MOVING),
-	(uint8_t*)(&app_regs.REG_IMMEDIATE_PULSES),
-	(uint8_t*)(&app_regs.REG_ENDSTOP_SWITCH),
-	(uint8_t*)(&app_regs.REG_MOTOR_BRAKE)
+	/* Direct motor control */
+	(uint8_t*)(&app_regs.REG_STOP_MOVEMENT),
+	(uint8_t*)(&app_regs.REG_DIRECT_VELOCITY),
+	/* Accelerated motor control */
+	(uint8_t*)(&app_regs.REG_MOVE_TO),
+	(uint8_t*)(&app_regs.REG_MOVE_TO_EVENTS),
+	(uint8_t*)(&app_regs.REG_MIN_VELOCITY),
+	(uint8_t*)(&app_regs.REG_MAX_VELOCITY),
+	(uint8_t*)(&app_regs.REG_ACCELERATION),
+	(uint8_t*)(&app_regs.REG_DECELERATION),
+	(uint8_t*)(&app_regs.REG_ACCELERATION_JERK),
+	(uint8_t*)(&app_regs.REG_DECELERATION_JERK),
+	/* Homing control */
+	(uint8_t*)(&app_regs.REG_HOME_STEPS),
+	(uint8_t*)(&app_regs.REG_HOME_STEPS_EVENTS),
+	(uint8_t*)(&app_regs.REG_HOME_VELOCITY),
+	(uint8_t*)(&app_regs.REG_HOME_SWITCH)
 };
