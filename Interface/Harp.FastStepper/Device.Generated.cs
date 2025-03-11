@@ -3395,8 +3395,8 @@ namespace Harp.FastStepper
     [Flags]
     public enum MovingFlags : byte
     {
-        None = 0x0,
-        IsMoving = 0x1
+        StopMoving = 0x0,
+        StartMoving = 0x1
     }
 
     /// <summary>
@@ -3410,13 +3410,13 @@ namespace Harp.FastStepper
     }
 
     /// <summary>
-    /// Flags describing the state of the motor stop switch.
+    /// Activate the brake.
     /// </summary>
     [Flags]
     public enum MotorBrakeFlags : byte
     {
-        None = 0x0,
-        HomeSwitch = 0x1
+        BreakOn = 0x1,
+        BreakOff = 0x0
     }
 
     /// <summary>

@@ -131,15 +131,17 @@ bitMasks:
   MovingFlags:
     description: Flags describing the movement state of the motor.
     bits:
-      IsMoving: 0x1
+      StopMoving: 0x0
+      StartMoving: 0x1
   HomeSwitchFlags:
     description: Flags describing the state of the motor stop switch.
     bits:
       HomeSwitch: 0x1
   MotorBrakeFlags:
-    description: Flags describing the state of the motor stop switch.
+    description: Activate the brake.
     bits:
-      HomeSwitch: 0x1
+      BreakOn: 0x1
+      BreakOff: 0x0
   HomeStepsEventsFlags:
     description: Flags describing the status of the homing sequence.
     bits:
