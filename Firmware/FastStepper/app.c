@@ -39,7 +39,7 @@ void hwbp_app_initialize(void)
     
    	/* Start core */
     core_func_start_core(
-        1225,
+        2120,
         hwH, hwL,
         fwH, fwL,
         ass,
@@ -62,7 +62,7 @@ void core_callback_catastrophic_error_detected(void)
 	timer_type0_stop(&TCC0);
 	
 	/* Disable motor */
-	set_MOTOR_ENABLE;
+	clr_MOTOR_ENABLE;
 }
 
 /************************************************************************/
@@ -80,9 +80,8 @@ void core_callback_define_clock_default(void)
 
 void core_callback_initialize_hardware(void)
 {
-	
 	/* Initialize IOs */
-	/* Don't delete this function!!! */
+	/* Don't delete this function!!! */	
 	init_ios();
 	
 	/* Initialize ADC */
@@ -92,17 +91,16 @@ void core_callback_initialize_hardware(void)
 	init_quadrature_encoder();
 	
 	/* Initialize serial with 100 KHz */
-	uint16_t BSEL = 19;
-	int8_t BSCALE = 0;
-		
-	USARTD0_CTRLC = USART_CMODE_ASYNCHRONOUS_gc | USART_PMODE_DISABLED_gc | USART_CHSIZE_8BIT_gc;
-	USARTD0_BAUDCTRLA = *((uint8_t*)&BSEL);
-	USARTD0_BAUDCTRLB = (*(1+(uint8_t*)&BSEL) & 0x0F) | ((BSCALE<<4) & 0xF0);
-	USARTD0_CTRLB = USART_RXEN_bm;
-	USARTD0_CTRLA |= (INT_LEVEL_LOW << 4);
+	//uint16_t BSEL = 19;
+	//int8_t BSCALE = 0;		
+	//USARTD0_CTRLC = USART_CMODE_ASYNCHRONOUS_gc | USART_PMODE_DISABLED_gc | USART_CHSIZE_8BIT_gc;
+	//USARTD0_BAUDCTRLA = *((uint8_t*)&BSEL);
+	//USARTD0_BAUDCTRLB = (*(1+(uint8_t*)&BSEL) & 0x0F) | ((BSCALE<<4) & 0xF0);
+	//USARTD0_CTRLB = USART_RXEN_bm;
+	//USARTD0_CTRLA |= (INT_LEVEL_LOW << 4);
 }
 
-// Motor configuration default variaables
+// Motor configuration default variables
 extern uint16_t motor_minimum_velocity;
 extern uint16_t motor_maximum_velocity;
 extern float motor_acceleration;
@@ -110,12 +108,24 @@ extern float motor_deceleration;
 extern float motor_acceleration_jerk;
 extern float motor_deceleration_jerk;
 
+extern uint16_t temporary_reg_control;
+
 
 void core_callback_reset_registers(void)
 {
 	/* Initialize registers */
 	/* General control registers */
-	app_regs.REG_CONTROL = 0;
+	//#define REG_CONTROL_B_ENABLE_MOTOR                     (1<<0)       //
+	//#define REG_CONTROL_B_DISABLE_MOTOR                    (1<<1)       //
+	//#define REG_CONTROL_B_ENABLE_ANALOG_IN                 (1<<2)       //
+	//#define REG_CONTROL_B_DISABLE_ANALOG_IN                (1<<3)       //
+	//#define REG_CONTROL_B_ENABLE_QUAD_ENCODER              (1<<4)       //
+	//#define REG_CONTROL_B_DISABLE_QUAD_ENCODER             (1<<5)       //
+	//#define REG_CONTROL_B_RESET_QUAD_ENCODER               (1<<6)       //
+	//#define REG_CONTROL_B_ENABLE_HOMING                    (1<<7)       //
+	//#define REG_CONTROL_B_DISABLE_HOMING                   (1<<8)       //
+	temporary_reg_control = REG_CONTROL_B_DISABLE_MOTOR | REG_CONTROL_B_DISABLE_ANALOG_IN | REG_CONTROL_B_DISABLE_QUAD_ENCODER | REG_CONTROL_B_DISABLE_HOMING;
+	app_regs.REG_CONTROL = temporary_reg_control;
 	/* Specific hardware registers */
 	app_regs.REG_ENCODER = 0;
 	app_regs.REG_ANALOG_INPUT = 0;
@@ -206,18 +216,24 @@ extern void update_motor_velocity();
 
 extern enum MovementStatus current_movement_status;
 
-//uint32_t counter = 0; 
+uint8_t endstop_counter = 0;
+
+// Bitmask to store the different homing events
+uint8_t home_steps_events = 0;
+// Bitmask to store the different move events
+uint8_t move_to_events = 0;
+
 
 void core_callback_t_before_exec(void)
 {
-	/* Read ADC */
+	// Read ADC
 	if (app_regs.REG_CONTROL & REG_CONTROL_B_ENABLE_ANALOG_IN)
 	{
 		core_func_mark_user_timestamp();
 		start_analog_conversion();
 	}
 	
-	/* Read quadrature encoder */
+	// Read quadrature encoder
 	app_regs.REG_ENCODER = get_quadrature_encoder();
 		
 	if (app_regs.REG_ENCODER != quadrature_previous_value)
@@ -229,7 +245,7 @@ void core_callback_t_before_exec(void)
 	}		
 	quadrature_previous_value = app_regs.REG_ENCODER;
 	
-	/* Notify that motor is stopped */
+	// Notify that motor is stopped
 	if (send_motor_stopped_notification)
 	{		
 		send_motor_stopped_notification = false;
@@ -274,49 +290,59 @@ void core_callback_t_before_exec(void)
 	}
 	clr_OUTPUT_0;
 	
-	/* Check if the motor endstop state changed */
-	int8_t endstop_value = read_HOME_SWITCH;
-	if (endstop_value != endstop_previous_value)
+
+	// Debouncer for the endstop routine
+	if (endstop_counter)
 	{
-		endstop_previous_value = endstop_value;
-		if (endstop_value)
-		{
-			// @TODO: Is it worth to send the event on this case? Hummmm....
-			/* Update register and send event */
-			app_regs.REG_HOME_SWITCH = 0;
-			core_func_send_event(ADD_REG_HOME_SWITCH, true);
-		}
-		else
-		{
-			/* Stop motor */
-			timer_type0_stop(&TCC0);
-			motor_is_running = false;
-			motor_current_position = 0;
-			
-			// If the endstop switch was triggered while the motor was homing, that's perfect, it's what we want.
-			// So in this case, we will send the success event
-			if (current_movement_status==MOVEMENT_STATUS_HOMING)
-			{
-				app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_HOMING_SUCCESSFUL;								
-			}
-			// However, if the switch was triggered while we were not homing, it's an unexpected event
-			else
-			{
-				app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_UNEXPECTED_HOME;				
-			}
-			// Either way, we need to send an event
-			core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);
-			
-			current_movement_status=MOVEMENT_STATUS_STOPPED;
+		// Only debounces when the switch is not active, so we can skip the noise caused
+		// by releasing the switch, which causes pulses that can last 10ms
+		if (read_HOME_SWITCH) endstop_counter++;
 				
-			// @TODO: Is it worth to send the event on this case? Hummmm....
-			/* Update register and send event */
-			app_regs.REG_HOME_SWITCH = REG_HOME_SWITCH_B_HOME_SWITCH;
-			core_func_send_event(ADD_REG_HOME_SWITCH, true);
-		}		
+		// Runs every 500us, so 40 cycles is 20ms
+		if (endstop_counter == 20)
+		{
+			endstop_counter = 0;					
+		}
+	}
+			
+	// If there was any home steps event to report, let's send it	
+	if (home_steps_events)
+	{
+		// Either way, we need to send an event
+		app_regs.REG_HOME_STEPS_EVENTS = home_steps_events;
+		core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);
+		home_steps_events = 0;	
+	}
+		
+	// If there was any move to event to report, let's send it	
+	if (move_to_events)
+	{
+		// Either way, we need to send an event
+		app_regs.REG_MOVE_TO_EVENTS = move_to_events;
+		core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		move_to_events = 0;	
 	}
 	
-
+	
+	
+	// @TODO: Is it worth to send the event on every change? Hummmm problly not....
+	// Check if the motor endstop state changed
+	//int8_t endstop_value = read_HOME_SWITCH;
+	//if (endstop_value != endstop_previous_value)
+	//{
+		//endstop_previous_value = endstop_value;
+		//if (endstop_value)
+		//{
+			//app_regs.REG_HOME_SWITCH = 0;
+			//core_func_send_event(ADD_REG_HOME_SWITCH, true);
+		//}
+		//else
+		//{
+			//
+			//app_regs.REG_HOME_SWITCH = REG_HOME_SWITCH_B_HOME_SWITCH;
+			//core_func_send_event(ADD_REG_HOME_SWITCH, true);
+		//}		
+	//}
 	
 }
 
@@ -324,18 +350,19 @@ void core_callback_t_after_exec(void) {}
 void core_callback_t_new_second(void) {}
 
 extern bool reg_control_was_updated;
-extern uint8_t temporary_reg_control;
+extern uint16_t temporary_reg_control;
 
 void core_callback_t_500us(void)
 {
-	/* Update REG_CONTROL with the temporary register */
-	/* Writing to a register happens before this function (core_callback_t_500us) */
-	if (reg_control_was_updated)
-	{
-		reg_control_was_updated = false;
-		
-		app_regs.REG_CONTROL = temporary_reg_control;
-	}
+	///* Update REG_CONTROL with the temporary register */
+	///* Writing to a register happens before this function (core_callback_t_500us) */
+	//if (reg_control_was_updated)
+	//{
+		//reg_control_was_updated = false;
+		//
+		//app_regs.REG_CONTROL = temporary_reg_control;
+		////core_func_send_event(ADD_REG_CONTROL, true);
+	//}
 }
 
 // Flag indicating that we received a new target position
@@ -354,43 +381,103 @@ extern void move_to_home(int32_t homing_distance);
 
 extern uint8_t home_steps_events;
 
+extern bool homing_enabled;
+extern bool homing_active;
+extern bool homing_performed;
+
 
 void core_callback_t_1ms(void)
 {
 	//if ((app_regs.REG_CONTROL & REG_CONTROL_B_ENABLE_MOTOR) == false)
 	//{
-		///* Disable medium and high level interrupts */
-		///* Medium are enough but we can win some precious cpu time here */
+		//// Disable medium and high level interrupts
+		//// Medium are enough but we can win some precious cpu time here
 		//PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
 		//
-		///* Stop motor */
+		//// Stop motor
 		//stop_motor();
 		//
-		///* Re-enable all interrupt levels */
+		//// Re-enable all interrupt levels
 		//PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
 	//}
 
+	
 	// Process new requests to update the target position	
 	if (updated_target_position)
 	{
 		updated_target_position = false;
-		move_to_target_position(requested_target_position);
+		
+		// Don't accept move commands if the motor is currently disabled
+		if ((app_regs.REG_CONTROL & REG_CONTROL_B_ENABLE_MOTOR) == false)
+		{
+			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_MOTOR_DISABLED;
+			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		}
+
+		// Don't accept move commands if the motor is currently homing
+		else if (current_movement_status == MOVEMENT_STATUS_HOMING)
+		{
+			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_CURRENTLY_HOMING;
+			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		}
+
+		// If homing is enabled but the homing routine has not been performed yet, throw out an error
+		else if (homing_enabled && homing_performed == false)
+		{
+			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_HOMING_MISSING;
+			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		}
+		// If homing is enabled and the requested move position is past the home position, throw out an error
+		else if (homing_enabled && requested_target_position < 0)
+		{
+			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_INVALID_POSITION;
+			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		}
+		else
+		{
+			move_to_target_position(requested_target_position);
+		}
 	}
 
 	// Process new requests to home the motor
 	if (requested_homing)
 	{
 		requested_homing = false;
-		move_to_home(requested_homing_distance);
+		// If homing is enabled, let's see if we can home
+		if (homing_enabled)
+		{
+			// Don't accept home commands if the motor is currently disabled
+			if ((app_regs.REG_CONTROL & REG_CONTROL_B_ENABLE_MOTOR) == false)
+			{
+				app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_MOTOR_DISABLED;
+				core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);
+			}
+			// If the home switch is active, we are already home
+			else if (read_HOME_SWITCH == false)
+			{
+				app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_ALREADY_HOME;
+				core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);							
+			}
+			// If the home switch is active, we are already home
+			else if (read_HOME_SWITCH == false)
+			{
+				app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_ALREADY_HOME;
+				core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);							
+			}
+			// If nothing failed, we can perform the homing routing
+			else
+			{
+				move_to_home(requested_homing_distance);				
+			}			
+		}
+		// If we got a homing command but homing is not enabled, let's send back an error event
+		else
+		{
+			app_regs.REG_HOME_STEPS_EVENTS = REG_HOME_STEPS_EVENTS_B_HOMING_DISABLED;
+			core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);			
+		}
 	}
 
-	// If there was any home steps event to report, let's send it	
-	if (home_steps_events)
-	{
-		app_regs.REG_HOME_STEPS_EVENTS = home_steps_events;
-		core_func_send_event(ADD_REG_HOME_STEPS_EVENTS, true);
-		home_steps_events = 0;
-	}
 	
 }
 

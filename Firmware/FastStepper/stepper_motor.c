@@ -10,8 +10,23 @@
 // Current status regarding the acceleration of the motor
 enum MovementStatus current_movement_status = MOVEMENT_STATUS_STOPPED;
 
+// Flag indicating if homing is enabled on the board
+bool homing_enabled = false;
+
+// Flag indicating if homing is currently active on the board
+// This is used to make sure homing is not active when leaving the home position, 
+// which could cause problems because of the electrical noise on the switch
+bool homing_active = false;
+
+// Flag indicating if the homing routine has been performed since the board is active
+bool homing_performed = false;
+
 // Flag indicating if the current movement is a homing movement
 bool homing_movement = false;
+
+
+
+
 
 // Flag used by the interrupts to indicate the motor has stopped moving
 bool send_motor_stopped_notification = false;
@@ -51,16 +66,15 @@ const uint16_t MOTOR_MAX_STEP_PERIOD = 65535;
 
 
 // Minimum step period allowed (this corresponds to the maximum allowed velocity, 10k steps/s)
-const uint16_t MOTOR_MIN_STEP_PERIOD = 10;
+const uint16_t MOTOR_MIN_STEP_PERIOD = 100;
 
 
 // Period value for the stepper motor pulses (in us)
 uint16_t motor_current_step_period;
 
 
-// Bitmask to store the different homing events
-uint8_t home_steps_events;
-
+extern uint8_t home_steps_events;
+extern uint8_t move_to_events;
  
 /************************************************************************/
 /* Globals                                                              */
@@ -152,15 +166,17 @@ void set_motor_step_period(int32_t period)
 
 void move_to_target_position(int32_t target_position)
 {	
-	// Need to get the current motor position safely, since this can be called while the motor is moving
-	/* Disable medium and high level interrupts */
+	// Need to get the current motor position and set the new target position safely, 
+	// since this can be called while the motor is moving
+	// Disable medium and high level interrupts
 	PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm;
 	int32_t current_position = motor_current_position;
-	/* Re-enable all interrupt levels */
+	motor_target_position = target_position;	
+	// Re-enable all interrupt levels
 	PMIC_CTRL = PMIC_RREN_bm | PMIC_LOLVLEN_bm | PMIC_MEDLVLEN_bm | PMIC_HILVLEN_bm;
 		
 	// If we are already at the target position, no need to do anything
-	if (target_position == current_position) return;		
+	if (motor_target_position == current_position) return;		
 
 	// If we do need to move, first we need to set which direction to go
 	// @TODO: In the future this could contemplate a change of direction mid-movement (with deceleration)
@@ -357,14 +373,21 @@ ISR(TCC0_CCA_vect/*, ISR_NAKED*/)
 	// The target position was reached, we can stop the motor now
 	if (motor_current_position == motor_target_position)
 	{
-		/* Stop motor */
+		// Stop motor
 		stop_motor();
-		
+		current_movement_status = MOVEMENT_STATUS_STOPPED;
 		// If we were performing a homing movement and reached the end, we got an error situation
 		if (current_movement_status == MOVEMENT_STATUS_HOMING)
 		{
 			home_steps_events = REG_HOME_STEPS_EVENTS_B_HOMING_FAILED;
+			
+		}
+		// If we were not performing a homing movement, then we terminated a normal movement successfully
+		else
+		{
+			move_to_events = REG_MOVE_TO_EVENTS_B_MOVE_SUCCESSFUL;		
 		}		
+	
 	}
 }
 

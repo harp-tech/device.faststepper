@@ -12,7 +12,9 @@ void init_ios(void)
 	io_pin2in(&PORTC, 7, PULL_IO_TRISTATE, SENSE_IO_EDGES_BOTH);         // ENDSTOP_SWITCH
 
 	/* Configure input interrupts */
+	// io_set_int(PORT_t* port, uint8_t int_level, uint8_t int_n, uint8_t mask, bool reset_mask);
 	io_set_int(&PORTB, INT_LEVEL_LOW, 0, (1<<0), false);                 // STOP_SWITCH
+	io_set_int(&PORTC, INT_LEVEL_LOW, 0, (1<<7), false);                 // ENDSTOP_SWITCH
 
 	/* Configure output pins */
 	io_pin2out(&PORTC, 3, OUT_IO_DIGITAL, IN_EN_IO_EN);                  // MOTOR_ENABLE

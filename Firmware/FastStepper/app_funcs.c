@@ -76,6 +76,7 @@ bool (*app_func_wr_pointer[])(void*) = {
 bool reg_control_was_updated = false;
 uint16_t temporary_reg_control;
 
+
 void app_read_REG_CONTROL(void)
 {
 	uint16_t temp = 0;
@@ -107,14 +108,24 @@ void app_read_REG_CONTROL(void)
 		temp |= REG_CONTROL_B_DISABLE_QUAD_ENCODER;
 	}
 
+	if (app_regs.REG_CONTROL & REG_CONTROL_B_ENABLE_HOMING)
+	{
+		temp |= REG_CONTROL_B_ENABLE_HOMING;
+	}
+	else
+	{
+		temp |= REG_CONTROL_B_DISABLE_HOMING;
+	}
+
 	app_regs.REG_CONTROL = temp;
 }
 
 extern enum MovementStatus current_movement_status;
+extern bool homing_enabled;
 
 bool app_write_REG_CONTROL(void *a)
 {
-	uint16_t reg = *((uint16_t*)a);
+	uint16_t reg = *((uint16_t*)a);	
 	
 	if (reg & REG_CONTROL_B_ENABLE_MOTOR)  { temporary_reg_control |=  REG_CONTROL_B_ENABLE_MOTOR; temporary_reg_control &=  ~REG_CONTROL_B_DISABLE_MOTOR; }
 	if (reg & REG_CONTROL_B_DISABLE_MOTOR) { temporary_reg_control &= ~REG_CONTROL_B_ENABLE_MOTOR; temporary_reg_control |=   REG_CONTROL_B_DISABLE_MOTOR; }
@@ -124,6 +135,21 @@ bool app_write_REG_CONTROL(void *a)
 	
 	if (reg & REG_CONTROL_B_ENABLE_QUAD_ENCODER)  { temporary_reg_control |=  REG_CONTROL_B_ENABLE_QUAD_ENCODER; temporary_reg_control &=  ~REG_CONTROL_B_DISABLE_QUAD_ENCODER; }
 	if (reg & REG_CONTROL_B_DISABLE_QUAD_ENCODER) { temporary_reg_control &= ~REG_CONTROL_B_ENABLE_QUAD_ENCODER; temporary_reg_control |=   REG_CONTROL_B_DISABLE_QUAD_ENCODER; }
+
+
+	if (reg & REG_CONTROL_B_ENABLE_HOMING)  { temporary_reg_control |=  REG_CONTROL_B_ENABLE_HOMING; temporary_reg_control &=  ~REG_CONTROL_B_DISABLE_HOMING; }
+	if (reg & REG_CONTROL_B_DISABLE_HOMING) { temporary_reg_control &= ~REG_CONTROL_B_ENABLE_HOMING; temporary_reg_control |=   REG_CONTROL_B_DISABLE_HOMING; }
+	
+
+	if (temporary_reg_control & REG_CONTROL_B_ENABLE_HOMING)
+	{
+		homing_enabled = true;
+	}
+	else
+	{
+		homing_enabled = false;
+	}
+	
 	
 	if (reg & REG_CONTROL_B_RESET_QUAD_ENCODER)
 	{
@@ -140,9 +166,9 @@ bool app_write_REG_CONTROL(void *a)
 		clr_MOTOR_ENABLE;
 	}
 	
-	reg_control_was_updated = true;
+	app_regs.REG_CONTROL = temporary_reg_control;
+	//reg_control_was_updated = true;
 	
-	app_regs.REG_CONTROL = reg;
 	return true;
 }
 
@@ -399,7 +425,7 @@ extern int32_t requested_homing_distance;
 bool app_write_REG_HOME_STEPS(void *a)
 {
 	// Will not allow to start a homing procedure if the motor is currently moving
-	if (motor_is_running) return false;
+	if (motor_is_running) return true;
 	// Save the requested homing max distance so it's processed on the main loop
 	requested_homing_distance = *((int32_t*)a);
 	requested_homing = true;

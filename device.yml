@@ -60,6 +60,7 @@ registers:
     type: U8
     description: Reports possible events regarding the execution of the ADD_REG_MOVE_TO register.
     access: Event
+    maskType: MoveToEventsFlags
   MinVelocity:
     address: 42
     type: U16
@@ -142,6 +143,15 @@ bitMasks:
     bits:
       BreakOn: 0x1
       BreakOff: 0x0
+  MoveToEventsFlags:
+    description: Flags describing the status of the move to command.
+    bits:
+      MoveSuccessful: 0x1
+      MoveAborted: 0x2
+      InvalidPosition: 0x4
+      HomingMissing: 0x8
+      CurrentlyHoming: 0x10
+      MotorDisabled: 0x20
   HomeStepsEventsFlags:
     description: Flags describing the status of the homing sequence.
     bits:
@@ -150,4 +160,4 @@ bitMasks:
       AlreadyHome: 0x4
       UnexpectedHome: 0x8
       HomingDisabled: 0x10
-      HomingMissing: 0x20
+      MotorDisabled: 0x20

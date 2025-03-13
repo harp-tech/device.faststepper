@@ -118,7 +118,7 @@ typedef struct
 #define ADD_REG_MIN_VELOCITY                42 // U16    Sets the minimum velocity for the movement (steps/s)
 #define ADD_REG_MAX_VELOCITY                43 // U16    Sets the maximum velocity for the movement (steps/s)
 #define ADD_REG_ACCELERATION                44 // I32    Sets the acceleration for the movement (steps/s^2)
-#define ADD_REG_DECELERATION                45 // I32    Sets the acceleration for the movement (steps/s^2)
+#define ADD_REG_DECELERATION                45 // I32    Sets the deceleration for the movement (steps/s^2)
 #define ADD_REG_ACCELERATION_JERK           46 // I32    Sets the jerk for the acceleration part of the movement (steps/s^3)
 #define ADD_REG_DECELERATION_JERK           47 // I32    Sets the jerk for the deceleration part of the movement (steps/s^3)
 
@@ -140,7 +140,7 @@ typedef struct
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
 #define APP_REGS_ADD_MAX                    0x33
-#define APP_NBYTES_OF_REG_BANK              53
+#define APP_NBYTES_OF_REG_BANK              49
 
 /************************************************************************/
 /* Registers' bits                                                      */
@@ -155,10 +155,20 @@ typedef struct
 #define REG_CONTROL_B_ENABLE_HOMING                    (1<<7)       //
 #define REG_CONTROL_B_DISABLE_HOMING                   (1<<8)       //
 
+#define REG_MOVE_TO_EVENTS_B_MOVE_SUCCESSFUL           (1<<0)       // Movement terminated successfully
+#define REG_MOVE_TO_EVENTS_B_MOVE_ABORTED              (1<<1)       // Movement was aborted before terminating
+#define REG_MOVE_TO_EVENTS_B_INVALID_POSITION          (1<<2)       // Movement can't start because position is invalid
+#define REG_MOVE_TO_EVENTS_B_HOMING_MISSING            (1<<3)       // Homing is active and the homing routine has not happened yet
+#define REG_MOVE_TO_EVENTS_B_CURRENTLY_HOMING          (1<<4)       // Movement can't start because motor is currently homing
+#define REG_MOVE_TO_EVENTS_B_MOTOR_DISABLED            (1<<5)       // Movement can't start because motor is disabled
+
+
 #define REG_HOME_STEPS_EVENTS_B_HOMING_SUCCESSFUL      (1<<0)       // Homing terminated successfully
 #define REG_HOME_STEPS_EVENTS_B_HOMING_FAILED          (1<<1)       // Homing failed, motor moved but home position was not reached
 #define REG_HOME_STEPS_EVENTS_B_ALREADY_HOME           (1<<2)       // Tried homing while already at home position
 #define REG_HOME_STEPS_EVENTS_B_UNEXPECTED_HOME        (1<<3)       // Home sensor triggered unexpectedly
+#define REG_HOME_STEPS_EVENTS_B_HOMING_DISABLED        (1<<4)       // Home command received but homing is disabled
+#define REG_HOME_STEPS_EVENTS_B_MOTOR_DISABLED         (1<<5)       // Homing can't start because motor is disabled
 
 
 #define REG_STOP_SWITCH_B_STOP_SWITCH                 (1<<0)		// 
