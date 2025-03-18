@@ -308,7 +308,7 @@ void app_read_REG_MOVE_TO_EVENTS(void)
 
 bool app_write_REG_MOVE_TO_EVENTS(void *a)
 {
-	return true;
+	return false;
 }
 
 /************************************************************************/
@@ -322,7 +322,7 @@ void app_read_REG_MIN_VELOCITY(void)
 
 bool app_write_REG_MIN_VELOCITY(void *a)
 {
-	//motor_minimum_velocity = *((uint16_t*)a);
+	motor_minimum_velocity = *((uint16_t*)a);
 	app_regs.REG_MIN_VELOCITY = motor_minimum_velocity;	
 	return true;
 }
@@ -338,7 +338,7 @@ void app_read_REG_MAX_VELOCITY(void)
 
 bool app_write_REG_MAX_VELOCITY(void *a)
 {
-	//motor_maximum_velocity = *((uint16_t*)a);
+	motor_maximum_velocity = *((uint16_t*)a);
 	app_regs.REG_MAX_VELOCITY = motor_maximum_velocity;
 	return true;
 }
@@ -441,7 +441,7 @@ void app_read_REG_HOME_STEPS_EVENTS(void)
 
 bool app_write_REG_HOME_STEPS_EVENTS(void *a)
 {
-	return true;
+	return false;
 }
 
 /************************************************************************/

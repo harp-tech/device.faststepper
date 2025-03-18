@@ -115,15 +115,6 @@ void core_callback_reset_registers(void)
 {
 	/* Initialize registers */
 	/* General control registers */
-	//#define REG_CONTROL_B_ENABLE_MOTOR                     (1<<0)       //
-	//#define REG_CONTROL_B_DISABLE_MOTOR                    (1<<1)       //
-	//#define REG_CONTROL_B_ENABLE_ANALOG_IN                 (1<<2)       //
-	//#define REG_CONTROL_B_DISABLE_ANALOG_IN                (1<<3)       //
-	//#define REG_CONTROL_B_ENABLE_QUAD_ENCODER              (1<<4)       //
-	//#define REG_CONTROL_B_DISABLE_QUAD_ENCODER             (1<<5)       //
-	//#define REG_CONTROL_B_RESET_QUAD_ENCODER               (1<<6)       //
-	//#define REG_CONTROL_B_ENABLE_HOMING                    (1<<7)       //
-	//#define REG_CONTROL_B_DISABLE_HOMING                   (1<<8)       //
 	temporary_reg_control = REG_CONTROL_B_DISABLE_MOTOR | REG_CONTROL_B_DISABLE_ANALOG_IN | REG_CONTROL_B_DISABLE_QUAD_ENCODER | REG_CONTROL_B_DISABLE_HOMING;
 	app_regs.REG_CONTROL = temporary_reg_control;
 	/* Specific hardware registers */
@@ -210,6 +201,8 @@ extern bool send_motor_stopped_notification;
 
 extern bool motor_is_running;
 
+extern uint32_t motor_distance_to_target;
+
 extern float calculate_braking_distance();
 
 extern void update_motor_velocity();
@@ -276,14 +269,13 @@ void core_callback_t_before_exec(void)
 		clr_OUTPUT_0;
 		set_OUTPUT_0;
 		
-		// Sending this two events just for debugging purposes, remove it before release
+		// @DEBUG: Sending this two events just for debugging purposes, remove it before release
 		//counter++;
 		//if (counter%20==0 && braking_distance > 0)
 		{
 			app_regs.REG_ACCELERATION = (int32_t)braking_distance;
 			core_func_send_event(ADD_REG_ACCELERATION, true);
-			int32_t remaining_distance = motor_target_position - motor_current_position;
-			app_regs.REG_DECELERATION = remaining_distance;
+			app_regs.REG_DECELERATION = motor_distance_to_target;
 			core_func_send_event(ADD_REG_DECELERATION, true);
 		}
 		
@@ -322,7 +314,6 @@ void core_callback_t_before_exec(void)
 		core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
 		move_to_events = 0;	
 	}
-	
 	
 	
 	// @TODO: Is it worth to send the event on every change? Hummmm problly not....

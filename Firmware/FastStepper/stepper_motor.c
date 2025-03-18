@@ -25,9 +25,6 @@ bool homing_performed = false;
 bool homing_movement = false;
 
 
-
-
-
 // Flag used by the interrupts to indicate the motor has stopped moving
 bool send_motor_stopped_notification = false;
 
@@ -38,7 +35,11 @@ float motor_current_acceleration = 0;
 // Current jerk of the motor (updated dynamically on every step during the movement)
 float motor_current_jerk = 0;
 
+// Estimated braking distance for the current motor velocity
 uint32_t motor_current_braking_distance = 0;
+
+// Distance from the current position to the movement final position
+uint32_t motor_distance_to_target;
 
 
 // Minimum velocity of the motor set by the user
@@ -96,30 +97,44 @@ bool motor_is_running = false;
 float calculate_braking_distance()
 {
 	// First we calculate the time it will take to brake, based on the current parameters
-	// This solution assumes the value for the velocity is positive, the acceleration is negative,
-	// and the jerk can be either positive or negative
-	// The time to stop can be calculating by solving the following equation
-	// v0-vmin + a0*t + 1/2*j^2 = 0
-	// which gives us the time it will take for the velocity to get to 0
-	// So the solutions for the quadratic equation are: (-a0 +- sqrt(pow(a0, 2)-4*j*(v0-vmin)))/(2*j)
+	float distance;
 	
-	// Calculation benchmarks using different variable types:
-	// 105 us using floats
-	// 102 us using int32_t
-	// Performance is quite similar, staying with floats for better precision
-	//set_OUTPUT_1;
-	// First we calculate the root portion: sqrt(pow(a0, 2)-4*j*v0))	
+	// Since we are not braking to 0 but to the minimum velocity, we can simplify the calculations slightly
 	float velocity = motor_current_velocity-motor_minimum_velocity;
-	float root = sqrt(pow(motor_deceleration, 2)-(4*motor_deceleration_jerk*velocity));
+		
+	// If the deceleration jerk is 0, the calculations are much simpler, it's a direct formula
+	if (motor_deceleration_jerk == 0)
+	{
+		//return (uint32_t)(current_speed*current_speed) / (2 * (int32_t)_deceleration);
+		distance = pow(velocity, 2) / (2 * (-motor_deceleration));
+	}
+	// If the jerk is not 0, we need to do more calculations
+	else
+	{
+		// This solution assumes the value for the velocity is positive, the acceleration is negative,
+		// and the jerk can be either positive or negative
+		// The time to stop can be calculating by solving the following equation
+		// v0-vmin + a0*t + 1/2*j^2 = 0
+		// which gives us the time it will take for the velocity to get to 0
+		// So the solutions for the quadratic equation are: (-a0 +- sqrt(pow(a0, 2)-4*j*(v0-vmin)))/(2*j)
+	
+		// Calculation benchmarks using different variable types:
+		// 105 us using floats
+		// 102 us using int32_t
+		// Performance is quite similar, staying with floats for better precision
+		//set_OUTPUT_1;
+		// First we calculate the root portion: sqrt(pow(a0, 2)-4*j*v0))	
+		float root = sqrt(pow(motor_deceleration, 2)-(4*motor_deceleration_jerk*velocity));
 
-	// If root is NAN, then the equation has no solution, the velocity can never reach zero
-	if (isnan(root)) return NAN;
+		// If root is NAN, then the equation has no solution, the velocity can never reach zero
+		if (isnan(root)) return NAN;
 
-	// Now that we know the equation has a solution, the value we want is given by calculation using the negative root
-	float time = (-motor_deceleration-root)/(2*motor_deceleration_jerk);
+		// Now that we know the equation has a solution, the value we want is given by calculation using the negative root
+		float time = (-motor_deceleration-root)/(2*motor_deceleration_jerk);
 
-	// Then we calculate how many steps we take during that time, using the same exact parameters
-	float distance = time*((velocity) + (motor_deceleration*time/2) + (motor_deceleration_jerk*pow(time, 2)/6));
+		// Then we calculate how many steps we take during that time, using the same exact parameters
+		distance = time*((velocity) + (motor_deceleration*time/2) + (motor_deceleration_jerk*pow(time, 2)/6));		
+	}	
 
 	motor_current_braking_distance = (uint32_t)distance;
 	
@@ -253,14 +268,14 @@ void update_motor_velocity()
 	//set_OUTPUT_0;
 
 	// Check how many steps we still need to take until we reach the target position
-	uint32_t remaining_distance = motor_target_position - motor_current_position;
+	motor_distance_to_target = (motor_target_position > motor_current_position) ? (motor_target_position - motor_current_position) : (motor_current_position - motor_target_position);
 
 	// If we are currently accelerating or moving at constant velocity, let's see if it's time to start decelerating
 	// We start decelerating when the remaining distance we have to travel matches the estimated braking distance
 	if (current_movement_status == MOVEMENT_STATUS_ACCELERATING || current_movement_status == MOVEMENT_STATUS_CONSTANT_VELOCITY)
 	{
 		// Are we at the point where we need to start decelerating because we're getting close to the target?
-		if (motor_current_braking_distance >= remaining_distance)
+		if (motor_current_braking_distance >= motor_distance_to_target)
 		{
 			// Just change the acceleration and jerk variables into the deceleration values
 			motor_current_acceleration = motor_deceleration;
@@ -272,7 +287,7 @@ void update_motor_velocity()
 	else if (current_movement_status == MOVEMENT_STATUS_DECELERATING)
 	{
 		// If the estimated breaking distance is bigger than the remaining distance, we need to slow down a little harder to compensate
-		if (motor_current_braking_distance > remaining_distance)
+		if (motor_current_braking_distance > motor_distance_to_target)
 		{			
 			set_OUTPUT_1;	
 			// Calculate a tweaking factor to be applied to the velocity. 
@@ -375,19 +390,18 @@ ISR(TCC0_CCA_vect/*, ISR_NAKED*/)
 	{
 		// Stop motor
 		stop_motor();
-		current_movement_status = MOVEMENT_STATUS_STOPPED;
 		// If we were performing a homing movement and reached the end, we got an error situation
 		if (current_movement_status == MOVEMENT_STATUS_HOMING)
 		{
 			home_steps_events = REG_HOME_STEPS_EVENTS_B_HOMING_FAILED;
-			
+			homing_performed = false;			
 		}
 		// If we were not performing a homing movement, then we terminated a normal movement successfully
 		else
 		{
 			move_to_events = REG_MOVE_TO_EVENTS_B_MOVE_SUCCESSFUL;		
 		}		
-	
+		current_movement_status = MOVEMENT_STATUS_STOPPED;	
 	}
 }
 

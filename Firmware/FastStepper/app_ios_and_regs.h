@@ -158,7 +158,7 @@ typedef struct
 #define REG_MOVE_TO_EVENTS_B_MOVE_SUCCESSFUL           (1<<0)       // Movement terminated successfully
 #define REG_MOVE_TO_EVENTS_B_MOVE_ABORTED              (1<<1)       // Movement was aborted before terminating
 #define REG_MOVE_TO_EVENTS_B_INVALID_POSITION          (1<<2)       // Movement can't start because position is invalid
-#define REG_MOVE_TO_EVENTS_B_HOMING_MISSING            (1<<3)       // Homing is active and the homing routine has not happened yet
+#define REG_MOVE_TO_EVENTS_B_HOMING_MISSING            (1<<3)       // Homing is enabled and the homing routine has not happened yet
 #define REG_MOVE_TO_EVENTS_B_CURRENTLY_HOMING          (1<<4)       // Movement can't start because motor is currently homing
 #define REG_MOVE_TO_EVENTS_B_MOTOR_DISABLED            (1<<5)       // Movement can't start because motor is disabled
 
