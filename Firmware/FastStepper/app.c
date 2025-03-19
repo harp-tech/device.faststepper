@@ -250,7 +250,7 @@ void core_callback_t_before_exec(void)
 	set_OUTPUT_0;	
 	// Check if the motor is moving and changing velocity
 	// If it is, we need to keep calculating the new velocity and breaking distance
-	if (motor_is_running && (current_movement_status==MOVEMENT_STATUS_ACCELERATING || current_movement_status==MOVEMENT_STATUS_DECELERATING))
+	if (motor_is_running && current_movement_status!=MOVEMENT_STATUS_HOMING)
 	{
 		float braking_distance = calculate_braking_distance();
 		clr_OUTPUT_0;
