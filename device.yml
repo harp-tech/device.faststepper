@@ -53,62 +53,85 @@ registers:
   MoveTo:
     address: 40
     type: S32
-    description: Moves to a specific position, using the velocity, acceleration and jerk configurations.
+    description: Moves to a specific position, using the current velocity, acceleration and jerk configurations.
+    access: Write
+  MoveToParametric:
+    address: 41
+    type: S32
+    length: 7
+    description: Same as MOVE_TO, but redefines the values for velocity, acceleration and jerk configurations before moving. [TARGET_POSITION, MIN_VELOCITY, MAX_VELOCITY, ACCELERATION, DECELERATION, ACCELERATION_JERK, DECELERATION_JERK]
     access: Write
   MoveToEvents:
-    address: 41
+    address: 42
     type: U8
     description: Reports possible events regarding the execution of the ADD_REG_MOVE_TO register.
     access: Event
     maskType: MoveToEventsFlags
   MinVelocity:
-    address: 42
-    type: U16
+    address: 43
+    type: S32
     description: Sets the minimum velocity for the movement (steps/s)
     access: Write
+    defaultValue: 200
+    minValue: 16
+    maxValue: 20000
   MaxVelocity:
-    address: 43
-    type: U16
+    address: 44
+    type: S32
     description: Sets the maximum velocity for the movement (steps/s)
     access: Write
+    defaultValue: 2000
+    minValue: 16
+    maxValue: 20000
   Acceleration:
-    address: 44
+    address: 45
     type: S32
     description: Sets the acceleration for the movement (steps/s^2)
     access: Write
+    defaultValue: 1000
+    minValue: 1
+    maxValue: 999999999
   Deceleration:
-    address: 45
+    address: 46
     type: S32
     description: Sets the deceleration for the movement (steps/s^2)
     access: Write
+    defaultValue: -1000
+    minValue: -999999999
+    maxValue: -1
   AccelerationJerk:
-    address: 46
+    address: 47
     type: S32
     description: Sets the jerk for the acceleration part of the movement (steps/s^3)
     access: Write
+    defaultValue: 0
   DecelerationJerk:
-    address: 47
+    address: 48
     type: S32
     description: Sets the jerk for the deceleration part of the movement (steps/s^3)
     access: Write
+    defaultValue: 0
   HomeSteps:
-    address: 48
+    address: 49
     type: S32
     description: Moves a specific number of steps in a direction according to the register's value and signal, attempting to perform a homing routine. Resets the current position to 0 when the home sensor is hit. The home steps value should be slightly over than the longest possible movement.
     access: Write
   HomeStepsEvents:
-    address: 49
+    address: 50
     type: U8
     description: Reports possible events regarding the execution of the REG_HOME_STEPS register.
     access: Event
     maskType: HomeStepsEventsFlags
   HomeVelocity:
-    address: 50
+    address: 51
     type: U32
     description: Sets the fixed velocity for the homing movement (steps/s)
     access: Write
+    defaultValue: 200
+    minValue: 16
+    maxValue: 20000
   HomeSwitch:
-    address: 51
+    address: 52
     type: U8
     description: Contains the state of the home switch.
     access: Event
@@ -152,6 +175,7 @@ bitMasks:
       HomingMissing: 0x8
       CurrentlyHoming: 0x10
       MotorDisabled: 0x20
+      InvalidParameters: 0x40
   HomeStepsEventsFlags:
     description: Flags describing the status of the homing sequence.
     bits:

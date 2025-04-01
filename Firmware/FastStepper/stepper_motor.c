@@ -42,32 +42,26 @@ uint32_t motor_current_braking_distance = 0;
 uint32_t motor_distance_to_target;
 
 
+// Homing velocity of the motor set by the user
+uint16_t motor_homing_velocity = DEFAULT_HOMING_VELOCITY;
+
 // Minimum velocity of the motor set by the user
-uint16_t motor_minimum_velocity = 400;
+uint16_t motor_minimum_velocity = DEFAULT_MINIMUM_VELOCITY;
 
 // Maximum velocity of the motor set by the user
-uint16_t motor_maximum_velocity = 10000;
+uint16_t motor_maximum_velocity = DEFAULT_MAXIMUM_VELOCITY;
 
 // Acceleration of the motor set by the user
-float motor_acceleration = 2000;
+float motor_acceleration = DEFAULT_ACCELERATION;
 
 // Deceleration of the motor set by the user
-float motor_deceleration = -2000;
+float motor_deceleration = DEFAULT_DECELERATION;
 
 // Acceleration jerk of the motor set by the user
-float motor_acceleration_jerk = 500;
+float motor_acceleration_jerk = DEFAULT_ACCELERATION_JERK;
 
 // Deceleration jerk of the motor set by the user
-float motor_deceleration_jerk = -500;
-
-
-
-// Maximum step period allowed (this corresponds to the minimum allowed velocity, a little over 15 steps/s)
-const uint16_t MOTOR_MAX_STEP_PERIOD = 65535;
-
-
-// Minimum step period allowed (this corresponds to the maximum allowed velocity, 10k steps/s)
-const uint16_t MOTOR_MIN_STEP_PERIOD = 100;
+float motor_deceleration_jerk = DEFAULT_DECELERATION_JERK;
 
 
 // Period value for the stepper motor pulses (in us)
@@ -234,7 +228,8 @@ void move_to_home(int32_t homing_distance)
 	(motor_target_position > motor_current_position) ? (set_MOTOR_DIRECTION) : (clr_MOTOR_DIRECTION);
 
 	// Initialize all the relevant variables with the initial movement settings
-	motor_current_velocity = motor_minimum_velocity;
+	// The homing movement is typically at a slow constant velocity, since we need to be able to stop instantly
+	motor_current_velocity = motor_homing_velocity;
 	motor_current_acceleration = 0;
 	motor_current_jerk = 0;
 	current_movement_status = MOVEMENT_STATUS_HOMING;
@@ -357,7 +352,16 @@ void update_motor_velocity()
 	{
 		motor_current_velocity = motor_maximum_velocity;
 		current_movement_status = MOVEMENT_STATUS_CONSTANT_VELOCITY;
-	}	
+	}
+	// Likewise, if we went below minimum velocity, we want to make sure we stay at
+	// exactly minimum velocity. This should only happen for a maximum of a few steps
+	// very close to the end of the movement
+	else if (motor_current_velocity < motor_minimum_velocity)
+	{
+		motor_current_velocity = motor_minimum_velocity;
+		current_movement_status = MOVEMENT_STATUS_CONSTANT_VELOCITY;
+	}
+	
 	// Update the motor step period to match the final velocity
 	uint32_t new_step_period = (uint32_t)(1000000/motor_current_velocity);
 	//clr_OUTPUT_1;

@@ -57,9 +57,10 @@ uint8_t app_regs_type[] = {
 	TYPE_I32,
 	/* Accelerated motor control */	
 	TYPE_I32,
+	TYPE_I32,
 	TYPE_U8,
-	TYPE_U16,
-	TYPE_U16,
+	TYPE_I32,
+	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
 	TYPE_I32,
@@ -72,6 +73,21 @@ uint8_t app_regs_type[] = {
 };
 
 uint16_t app_regs_n_elements[] = {
+	/* General control registers */
+	1,
+	/* Specific hardware registers */
+	1,
+	1,
+	/* Motor specific registers */
+	1,
+	1,
+	1,
+	/* Direct motor control */
+	1,
+	1,
+	/* Accelerated motor control */	
+	1,
+	7,
 	1,
 	1,
 	1,
@@ -79,15 +95,7 @@ uint16_t app_regs_n_elements[] = {
 	1,
 	1,
 	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
+	/* Homing control */	
 	1,
 	1,
 	1,
@@ -110,6 +118,7 @@ uint8_t *app_regs_pointer[] = {
 	(uint8_t*)(&app_regs.REG_DIRECT_VELOCITY),
 	/* Accelerated motor control */
 	(uint8_t*)(&app_regs.REG_MOVE_TO),
+	(uint8_t*)(app_regs.REG_MOVE_TO_PARAMETRIC),
 	(uint8_t*)(&app_regs.REG_MOVE_TO_EVENTS),
 	(uint8_t*)(&app_regs.REG_MIN_VELOCITY),
 	(uint8_t*)(&app_regs.REG_MAX_VELOCITY),

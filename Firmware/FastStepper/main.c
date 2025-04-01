@@ -6,7 +6,7 @@
 int main(void)
 {
 	/* Initialize device */
-	hwbp_app_initialize();
+ 	hwbp_app_initialize();
 
 	/* Enable interrupts */
 	hwbp_app_enable_interrupts;

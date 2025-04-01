@@ -37,6 +37,7 @@ void app_read_REG_STOP_MOVEMENT(void);
 void app_read_REG_DIRECT_VELOCITY(void);
 /* Accelerated motor control */
 void app_read_REG_MOVE_TO(void);
+void app_read_REG_MOVE_TO_PARAMETRIC(void);
 void app_read_REG_MOVE_TO_EVENTS(void);
 void app_read_REG_MIN_VELOCITY(void);
 void app_read_REG_MAX_VELOCITY(void);
@@ -67,6 +68,7 @@ bool app_write_REG_STOP_MOVEMENT(void *a);
 bool app_write_REG_DIRECT_VELOCITY(void *a);
 /* Accelerated motor control */
 bool app_write_REG_MOVE_TO(void *a);
+bool app_write_REG_MOVE_TO_PARAMETRIC(void *a);
 bool app_write_REG_MOVE_TO_EVENTS(void *a);
 bool app_write_REG_MIN_VELOCITY(void *a);
 bool app_write_REG_MAX_VELOCITY(void *a);

@@ -80,9 +80,10 @@ typedef struct
 	int32_t REG_DIRECT_VELOCITY;
 	/* Accelerated motor control */
 	int32_t REG_MOVE_TO;
+	int32_t REG_MOVE_TO_PARAMETRIC[7];
 	uint8_t REG_MOVE_TO_EVENTS;	
-	uint16_t REG_MIN_VELOCITY;
-	uint16_t REG_MAX_VELOCITY;
+	int32_t REG_MIN_VELOCITY;
+	int32_t REG_MAX_VELOCITY;
 	int32_t REG_ACCELERATION;
 	int32_t REG_DECELERATION;
 	int32_t REG_ACCELERATION_JERK;
@@ -114,20 +115,22 @@ typedef struct
 
 /* Accelerated motor control */
 #define ADD_REG_MOVE_TO                     40 // I32    Moves to a specific position, using the velocity, acceleration and jerk configurations.
-#define ADD_REG_MOVE_TO_EVENTS              41 // U8     Reports possible events regarding the execution of the ADD_REG_MOVE_TO register.
-#define ADD_REG_MIN_VELOCITY                42 // U16    Sets the minimum velocity for the movement (steps/s)
-#define ADD_REG_MAX_VELOCITY                43 // U16    Sets the maximum velocity for the movement (steps/s)
-#define ADD_REG_ACCELERATION                44 // I32    Sets the acceleration for the movement (steps/s^2)
-#define ADD_REG_DECELERATION                45 // I32    Sets the deceleration for the movement (steps/s^2)
-#define ADD_REG_ACCELERATION_JERK           46 // I32    Sets the jerk for the acceleration part of the movement (steps/s^3)
-#define ADD_REG_DECELERATION_JERK           47 // I32    Sets the jerk for the deceleration part of the movement (steps/s^3)
+#define ADD_REG_MOVE_TO_PARAMETRIC          41 // I32 x7 Same as MOVE_TO, but redefines the values for velocity, acceleration and jerk configurations before moving. 
+											   //        [TARGET_POSITION, MIN_VELOCITY, MAX_VELOCITY, ACCELERATION, DECELERATION, ACCELERATION_JERK, DECELERATION_JERK]
+#define ADD_REG_MOVE_TO_EVENTS              42 // U8     Reports possible events regarding the execution of the ADD_REG_MOVE_TO register.
+#define ADD_REG_MIN_VELOCITY                43 // I32    Sets the minimum velocity for the movement (steps/s)
+#define ADD_REG_MAX_VELOCITY                44 // I32    Sets the maximum velocity for the movement (steps/s)
+#define ADD_REG_ACCELERATION                45 // I32    Sets the acceleration for the movement (steps/s^2)
+#define ADD_REG_DECELERATION                46 // I32    Sets the deceleration for the movement (steps/s^2)
+#define ADD_REG_ACCELERATION_JERK           47 // I32    Sets the jerk for the acceleration part of the movement (steps/s^3)
+#define ADD_REG_DECELERATION_JERK           48 // I32    Sets the jerk for the deceleration part of the movement (steps/s^3)
 
 /* Homing control */
-#define ADD_REG_HOME_STEPS                  48 // I32    Moves a specific number of steps in a direction according to the register's value and signal, attempting to perform a homing routine.											   
+#define ADD_REG_HOME_STEPS                  49 // I32    Moves a specific number of steps in a direction according to the register's value and signal, attempting to perform a homing routine.											   
 											   // 	     Resets the current position to 0 when the home sensor is hit. The home steps value should be slightly over than the longest possible movement.
-#define ADD_REG_HOME_STEPS_EVENTS           49 // U8     Reports possible events regarding the execution of the REG_HOME_STEPS register.
-#define ADD_REG_HOME_VELOCITY               50 // U32    Sets the fixed velocity for the homing movement (steps/s)
-#define ADD_REG_HOME_SWITCH                 51 // U8     Contains the state of the home switch.
+#define ADD_REG_HOME_STEPS_EVENTS           50 // U8     Reports possible events regarding the execution of the REG_HOME_STEPS register.
+#define ADD_REG_HOME_VELOCITY               51 // U32    Sets the fixed velocity for the homing movement (steps/s)
+#define ADD_REG_HOME_SWITCH                 52 // U8     Contains the state of the home switch.
 
 
 
@@ -139,8 +142,8 @@ typedef struct
 /************************************************************************/
 /* Memory limits */
 #define APP_REGS_ADD_MIN                    0x20
-#define APP_REGS_ADD_MAX                    0x33
-#define APP_NBYTES_OF_REG_BANK              49
+#define APP_REGS_ADD_MAX                    0x34
+#define APP_NBYTES_OF_REG_BANK              81
 
 /************************************************************************/
 /* Registers' bits                                                      */
@@ -161,6 +164,7 @@ typedef struct
 #define REG_MOVE_TO_EVENTS_B_HOMING_MISSING            (1<<3)       // Homing is enabled and the homing routine has not happened yet
 #define REG_MOVE_TO_EVENTS_B_CURRENTLY_HOMING          (1<<4)       // Movement can't start because motor is currently homing
 #define REG_MOVE_TO_EVENTS_B_MOTOR_DISABLED            (1<<5)       // Movement can't start because motor is disabled
+#define REG_MOVE_TO_EVENTS_B_INVALID_PARAMETERS        (1<<6)       // Some parameter or combination of parameters for the movement is invalid
 
 
 #define REG_HOME_STEPS_EVENTS_B_HOMING_SUCCESSFUL      (1<<0)       // Homing terminated successfully
@@ -171,9 +175,9 @@ typedef struct
 #define REG_HOME_STEPS_EVENTS_B_MOTOR_DISABLED         (1<<5)       // Homing can't start because motor is disabled
 
 
-#define REG_STOP_SWITCH_B_STOP_SWITCH                 (1<<0)		// 
+#define REG_STOP_SWITCH_B_STOP_SWITCH                  (1<<0)		// Bitmask indicating the stop switch is active
 #define B_IS_MOVING                        (1<<0)					// 
-#define REG_HOME_SWITCH_B_HOME_SWITCH                  (1<<0)       //
-#define B_MOTOR_BRAKE                      (1<<0)					//
+#define REG_HOME_SWITCH_B_HOME_SWITCH                  (1<<0)       // 
+#define B_MOTOR_BRAKE                      (1<<0)					// Bitmask indicating the motor brake is active
 
 #endif /* _APP_REGS_H_ */

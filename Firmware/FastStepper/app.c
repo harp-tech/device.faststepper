@@ -129,9 +129,10 @@ void core_callback_reset_registers(void)
 	app_regs.REG_DIRECT_VELOCITY = 0;
 	/* Accelerated motor control */
 	app_regs.REG_MOVE_TO = 0;
+	//app_regs.REG_MOVE_TO_PARAMETRIC;
 	app_regs.REG_MOVE_TO_EVENTS = 0;
-	app_regs.REG_MIN_VELOCITY = motor_minimum_velocity;
-	app_regs.REG_MAX_VELOCITY = motor_maximum_velocity;
+	app_regs.REG_MIN_VELOCITY = (int32_t)motor_minimum_velocity;
+	app_regs.REG_MAX_VELOCITY = (int32_t)motor_maximum_velocity;
 	app_regs.REG_ACCELERATION = (int32_t)motor_acceleration;
 	app_regs.REG_DECELERATION = (int32_t)motor_deceleration;
 	app_regs.REG_ACCELERATION_JERK = (int32_t)motor_acceleration_jerk;
@@ -247,27 +248,27 @@ void core_callback_t_before_exec(void)
 		core_func_send_event(ADD_REG_MOVING, true);
 	}
 	
-	set_OUTPUT_0;	
+	//set_OUTPUT_0;	
 	// Check if the motor is moving and changing velocity
 	// If it is, we need to keep calculating the new velocity and breaking distance
 	if (motor_is_running && current_movement_status!=MOVEMENT_STATUS_HOMING)
 	{
 		float braking_distance = calculate_braking_distance();
 		clr_OUTPUT_0;
-		set_OUTPUT_0;
+		//set_OUTPUT_0;
 		// @TODO: This is an error situation, should never happen
 		// Think on how to prevent this to begin with
 		if (isnan(braking_distance))
 		{
-			clr_OUTPUT_0;
-			set_OUTPUT_0;
+			//clr_OUTPUT_0;
+			//set_OUTPUT_0;
 		}
-		clr_OUTPUT_0;
-		set_OUTPUT_0;
+		//clr_OUTPUT_0;
+		//set_OUTPUT_0;
 		// Update the velocity, based on the acceleration and jerk parameters
 		update_motor_velocity();
-		clr_OUTPUT_0;
-		set_OUTPUT_0;
+		//clr_OUTPUT_0;
+		//set_OUTPUT_0;
 		
 		// @DEBUG: Sending this two events just for debugging purposes, remove it before release
 		//counter++;
@@ -280,7 +281,7 @@ void core_callback_t_before_exec(void)
 		}
 		
 	}
-	clr_OUTPUT_0;
+//	clr_OUTPUT_0;
 	
 
 	// Debouncer for the endstop routine
@@ -404,14 +405,12 @@ void core_callback_t_1ms(void)
 			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_MOTOR_DISABLED;
 			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
 		}
-
 		// Don't accept move commands if the motor is currently homing
 		else if (current_movement_status == MOVEMENT_STATUS_HOMING)
 		{
 			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_CURRENTLY_HOMING;
 			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
 		}
-
 		// If homing is enabled but the homing routine has not been performed yet, throw out an error
 		else if (homing_enabled && homing_performed == false)
 		{
@@ -422,6 +421,12 @@ void core_callback_t_1ms(void)
 		else if (homing_enabled && requested_target_position < 0)
 		{
 			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_INVALID_POSITION;
+			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
+		}
+		// If any combination of parameters is invalid, throw out an error
+		else if (motor_maximum_velocity < motor_minimum_velocity)
+		{
+			app_regs.REG_MOVE_TO_EVENTS = REG_MOVE_TO_EVENTS_B_INVALID_PARAMETERS;
 			core_func_send_event(ADD_REG_MOVE_TO_EVENTS, true);
 		}
 		else

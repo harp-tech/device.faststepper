@@ -82,7 +82,6 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 		// Stop motor and reset the position
 		stop_motor();
 		motor_current_position = 0;
-		homing_performed = true;
 		
 			
 		// If the endstop switch was triggered while the motor was homing, that's perfect, it's what we want.
@@ -90,11 +89,13 @@ ISR(PORTC_INT0_vect, ISR_NAKED)
 		if (current_movement_status==MOVEMENT_STATUS_HOMING)
 		{
 			home_steps_events = REG_HOME_STEPS_EVENTS_B_HOMING_SUCCESSFUL;
+			homing_performed = true;
 		}
 		// However, if the switch was triggered while we were not homing, it's an unexpected event
 		else
-		{
+		{			
 			home_steps_events = REG_HOME_STEPS_EVENTS_B_UNEXPECTED_HOME;
+			homing_performed = false;
 
 			// If we are not homing but also not stopped, it means we were doing a normal movement that was just aborted		
 			if (current_movement_status!=MOVEMENT_STATUS_STOPPED)

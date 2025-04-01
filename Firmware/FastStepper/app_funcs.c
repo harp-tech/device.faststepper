@@ -26,6 +26,7 @@ void (*app_func_rd_pointer[])(void) = {
 	&app_read_REG_DIRECT_VELOCITY,
 	/* Accelerated motor control */
 	&app_read_REG_MOVE_TO,
+	&app_read_REG_MOVE_TO_PARAMETRIC,
 	&app_read_REG_MOVE_TO_EVENTS,
 	&app_read_REG_MIN_VELOCITY,
 	&app_read_REG_MAX_VELOCITY,
@@ -55,6 +56,7 @@ bool (*app_func_wr_pointer[])(void*) = {
 	&app_write_REG_DIRECT_VELOCITY,
 	/* Accelerated motor control */
 	&app_write_REG_MOVE_TO,
+	&app_write_REG_MOVE_TO_PARAMETRIC,
 	&app_write_REG_MOVE_TO_EVENTS,
 	&app_write_REG_MIN_VELOCITY,
 	&app_write_REG_MAX_VELOCITY,
@@ -300,6 +302,43 @@ bool app_write_REG_MOVE_TO(void *a)
 }
 
 /************************************************************************/
+/* REG_MOVE_TO_PARAMETRIC                                               */
+/************************************************************************/
+void app_read_REG_MOVE_TO_PARAMETRIC(void) {}
+bool app_write_REG_MOVE_TO_PARAMETRIC(void *a)
+{
+	int32_t *reg = ((int32_t*)a);
+	
+	// Save the received parameters in the register
+	app_regs.REG_MOVE_TO_PARAMETRIC[0] = reg[0];
+	app_regs.REG_MOVE_TO_PARAMETRIC[1] = reg[1];
+	app_regs.REG_MOVE_TO_PARAMETRIC[2] = reg[2];
+	app_regs.REG_MOVE_TO_PARAMETRIC[3] = reg[3];
+	app_regs.REG_MOVE_TO_PARAMETRIC[4] = reg[4];
+	app_regs.REG_MOVE_TO_PARAMETRIC[5] = reg[5];
+	app_regs.REG_MOVE_TO_PARAMETRIC[6] = reg[6];
+	
+	// Check if all the parameters are acceptable. Only start the movement if all the parameters check out
+	bool result = true;
+	result &= app_write_REG_MIN_VELOCITY(&reg[1]);
+	result &= app_write_REG_MAX_VELOCITY(&reg[2]);
+	result &= app_write_REG_ACCELERATION(&reg[3]);
+	result &= app_write_REG_DECELERATION(&reg[4]);
+	result &= app_write_REG_ACCELERATION_JERK(&reg[5]);
+	result &= app_write_REG_DECELERATION_JERK(&reg[6]);
+	
+	// None of the parameters failed, let's start the movement	
+	if (result)
+	{
+		requested_target_position = reg[0];
+		updated_target_position = true;	
+	}	
+	return result;
+}
+
+
+
+/************************************************************************/
 /* REG_MOVE_TO_EVENTS                                                   */
 /************************************************************************/
 void app_read_REG_MOVE_TO_EVENTS(void)
@@ -322,7 +361,18 @@ void app_read_REG_MIN_VELOCITY(void)
 
 bool app_write_REG_MIN_VELOCITY(void *a)
 {
-	motor_minimum_velocity = *((uint16_t*)a);
+	motor_minimum_velocity = (uint16_t)*((int32_t*)a);
+
+	if (motor_minimum_velocity < MOTOR_MINIMUM_VELOCITY)
+	{
+		app_regs.REG_MIN_VELOCITY = MOTOR_MINIMUM_VELOCITY;
+		return false;		
+	}
+	if (motor_minimum_velocity > MOTOR_MAXIMUM_VELOCITY)
+	{
+		app_regs.REG_MIN_VELOCITY = MOTOR_MAXIMUM_VELOCITY;
+		return false;
+	}	
 	app_regs.REG_MIN_VELOCITY = motor_minimum_velocity;	
 	return true;
 }
@@ -338,7 +388,19 @@ void app_read_REG_MAX_VELOCITY(void)
 
 bool app_write_REG_MAX_VELOCITY(void *a)
 {
-	motor_maximum_velocity = *((uint16_t*)a);
+	motor_maximum_velocity = (uint16_t)*((int32_t*)a);
+	
+	if (motor_maximum_velocity < MOTOR_MINIMUM_VELOCITY)
+	{
+		app_regs.REG_MAX_VELOCITY = MOTOR_MINIMUM_VELOCITY;
+		return false;
+	}
+	if (motor_maximum_velocity > MOTOR_MAXIMUM_VELOCITY)
+	{
+		app_regs.REG_MAX_VELOCITY = MOTOR_MAXIMUM_VELOCITY;
+		return false;
+	}
+	
 	app_regs.REG_MAX_VELOCITY = motor_maximum_velocity;
 	return true;
 }
@@ -447,12 +509,27 @@ bool app_write_REG_HOME_STEPS_EVENTS(void *a)
 /************************************************************************/
 /* REG_HOME_VELOCITY                                                    */
 /************************************************************************/
+extern uint16_t motor_homing_velocity;
+
 void app_read_REG_HOME_VELOCITY(void)
 {
 }
 
 bool app_write_REG_HOME_VELOCITY(void *a)
 {
+	motor_homing_velocity = (uint16_t)*((int32_t*)a);
+
+	if (motor_homing_velocity < MOTOR_MINIMUM_VELOCITY)
+	{
+		app_regs.REG_HOME_VELOCITY = MOTOR_MINIMUM_VELOCITY;
+		return false;
+	}
+	if (motor_homing_velocity > MOTOR_MAXIMUM_VELOCITY)
+	{
+		app_regs.REG_HOME_VELOCITY = MOTOR_MAXIMUM_VELOCITY;
+		return false;
+	}
+	app_regs.REG_HOME_VELOCITY = motor_homing_velocity;
 	return true;
 }
 
