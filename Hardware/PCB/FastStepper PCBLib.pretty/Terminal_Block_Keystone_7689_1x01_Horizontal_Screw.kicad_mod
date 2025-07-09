@@ -1,0 +1,220 @@
+(footprint "Terminal_Block_Keystone_7689_1x01_Horizontal_Screw"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(tags "THT single screw terminal block Connect")
+	(property "Reference" "T**"
+		(at 4 -2.8 0)
+		(layer "F.SilkS")
+		(uuid "843715c1-b7cf-49ce-a458-6034ba7ca42a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Keystone_7689"
+		(at 4 9.62 0)
+		(layer "F.Fab")
+		(uuid "2a8fb25a-3896-4b13-ad25-1f9b892b30f7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4a0d5446-fcde-4bdc-9cbb-9752bf1dc783")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c6ee6f96-17d3-4fcd-8377-176c3df79d0e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole exclude_from_pos_files)
+	(fp_line
+		(start -0.6 2)
+		(end -0.6 3)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7ecedc18-6c85-4e9f-ab7d-7518c01605f1")
+	)
+	(fp_line
+		(start 2 -0.6)
+		(end 4.8 -0.6)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "751abb03-f6bf-45d9-95ca-f08fbeea1937")
+	)
+	(fp_line
+		(start 2.2 5)
+		(end 5 5)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ae56845d-f44a-4fbd-aa61-8af784f36765")
+	)
+	(fp_line
+		(start 2.6 3.6)
+		(end 4.442539 1.700794)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "93681363-18bf-4270-b0fc-2011ac515994")
+	)
+	(fp_line
+		(start 2.909859 3.91344)
+		(end 4.765139 2.01633)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "cc826393-0467-4208-9037-d253c9e39ced")
+	)
+	(fp_line
+		(start 7 2)
+		(end 7 3)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "97101c6f-5473-42aa-980f-acd4085efc88")
+	)
+	(fp_circle
+		(center 3.658359 2.8)
+		(end 4.858359 2.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "27363c17-ccc3-4374-aa82-5a4b3b4a29ca")
+	)
+	(fp_line
+		(start -2 -2)
+		(end -2 17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "dafe5d90-4688-4419-96bd-2f6c3b0b8655")
+	)
+	(fp_line
+		(start -2 17)
+		(end 9.2 17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6f3cf06e-c0c3-48d6-98cc-fb87089e6665")
+	)
+	(fp_line
+		(start 9.2 -2)
+		(end -2 -2)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5453cff1-0644-48b8-8f84-f77edc9d7f1d")
+	)
+	(fp_line
+		(start 9.2 -2)
+		(end 9.2 17)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "964ab502-7e87-464d-9c06-f6fd2684a0a4")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 4 -1.62 0)
+		(layer "F.Fab")
+		(uuid "a995ffb7-9b01-4b14-a272-a0f45b4e3d60")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 3.4 3.4)
+		(drill 1.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5132b320-0e7e-492d-8af8-0ac529760902")
+	)
+	(pad "1" thru_hole circle
+		(at 0 5)
+		(size 3.4 3.4)
+		(drill 1.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "0065b290-a726-40ec-ac7a-1f6ed00022c0")
+	)
+	(pad "1" thru_hole circle
+		(at 7 0)
+		(size 3.4 3.4)
+		(drill 1.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "76ff588a-5b22-4041-b00f-04f4814eb5ee")
+	)
+	(pad "1" thru_hole circle
+		(at 7 5)
+		(size 3.4 3.4)
+		(drill 1.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c088c198-c42b-487f-aecb-a3481d914995")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/FastStepper PCBLib.pretty/7689.STEP"
+		(offset
+			(xyz 0 -5.5 2)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
+)

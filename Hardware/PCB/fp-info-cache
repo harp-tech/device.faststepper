@@ -1,4 +1,4 @@
-25726512158272440
+25714291602890776
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -59381,20 +59381,6 @@ One digit LED 7 segment SA39-11 SC39-11 SA39-12 SC39-12
 10
 10
 FastStepper PCBLib
-2X03
-PIN HEADER
-
-0
-6
-6
-FastStepper PCBLib
-22-23-2021
-.100" (2.54mm) Center Headers - 2 Pin
-
-0
-2
-2
-FastStepper PCBLib
 22-23-2031
 .100" (2.54mm) Center Header - 3 Pin
 
@@ -59423,40 +59409,12 @@ WEIDMUELLER CLAMP CONNECTOR
 5
 5
 FastStepper PCBLib
-240-0002-1
+AMPHENOL_12401610E4_2A
 
 
 0
-9
-9
-FastStepper PCBLib
-B1,27
-TEST PAD
-
-0
-1
-1
-FastStepper PCBLib
-C0402K
-Ceramic Chip Capacitor KEMET 0204 reflow solder{return}{return}Metric Code Size 1005
-
-0
-2
-2
-FastStepper PCBLib
-C0603K
-Ceramic Chip Capacitor KEMET 0603 reflow solder{return}{return}Metric Code Size 1608
-
-0
-2
-2
-FastStepper PCBLib
-CHIP-LED0603
-Hyper CHIPLED Hyper-Bright LED{return}{return}LB Q993{return}Source: http://www.osram.convergy.de/ ... Lb_q993.pdf
-
-0
-2
-2
+28
+28
 FastStepper PCBLib
 DC_POWER_INPUT_2.1MM
 
@@ -59465,6 +59423,20 @@ DC_POWER_INPUT_2.1MM
 3
 3
 FastStepper PCBLib
+FIL_DLW21HN900SQ2L
+
+
+0
+4
+4
+FastStepper PCBLib
+Jack_3.5mm_PJ316A_Horizontal
+PJ311 6pin SMD 3.5mm stereo headphones jack.
+headphones jack plug stereo 3.5mm PJ311
+0
+6
+6
+FastStepper PCBLib
 OSCILLATOR_3.2X2.5
 
 
@@ -59472,40 +59444,12 @@ OSCILLATOR_3.2X2.5
 4
 4
 FastStepper PCBLib
-R0402
-RESISTOR
-
+Pin_D4mm_hole2mm
+Pin_D4mm_hole2mm
+solder Pin_ with flat fork
 0
-2
-2
-FastStepper PCBLib
-R0805
-RESISTOR
-
-0
-2
-2
-FastStepper PCBLib
-SOT23-5
-Small Outline Transistor{return}{return}SOT753 - Philips Semiconductors{return}Source: http://www.semiconductors.philips.com/acrobat_download/datasheets/74HC_HCT1G66_3.pdf
-
-0
-5
-5
-FastStepper PCBLib
-SOT23-6L
-
-
-0
-6
-6
-FastStepper PCBLib
-SSOP28
-Shrink Small Outline Package SSOP-28{return}{return}http://www.ftdichip.com/Documents/DataSheets/DS_FT232R_v104.pdf
-
-0
-28
-28
+1
+1
 FastStepper PCBLib
 TP11R
 TEST PAD
@@ -59514,26 +59458,33 @@ TEST PAD
 1
 1
 FastStepper PCBLib
-TQFP44
-Thin Quad Flat Pack{return}{return}package type TQ
+Terminal_Block_Keystone_7689_1x01_Horizontal_Screw
 
+THT single screw terminal block Connect
 0
-44
-44
+4
+1
 FastStepper PCBLib
-TSOP-5
-TSOP-5 PLASTIC PACKAGE CASE 483-02{return}{return}Source: http://www.onsemi.com/pub/Collateral/MC34164-D.PDF
+Terminal_Block_Keystone_7698_1x01_Vertical_Screw
 
+THT single screw terminal block Connect
 0
-5
-5
+4
+1
 FastStepper PCBLib
-TSOT23-5
+Terminal_Block_Keystone_8734_1x01_Horizontal_Screw
+
+THT single screw terminal block Connect
+0
+1
+1
+FastStepper PCBLib
+USB_GCT_USB4056-03-A_REVA2
 
 
 0
-5
-5
+28
+28
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters

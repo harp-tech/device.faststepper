@@ -100,7 +100,7 @@
 			(width 0.127)
 			(type solid)
 		)
-		(layer "F.Fab")
+		(layer "User.4")
 		(uuid "9b1742c3-800f-4c15-bfdb-0e66c0c3fa6c")
 	)
 	(fp_line
@@ -110,7 +110,7 @@
 			(width 0.127)
 			(type solid)
 		)
-		(layer "F.Fab")
+		(layer "User.4")
 		(uuid "95b38f54-f3ba-46fd-9023-9ea5af23f542")
 	)
 	(fp_line
@@ -120,7 +120,7 @@
 			(width 0.127)
 			(type solid)
 		)
-		(layer "F.Fab")
+		(layer "User.4")
 		(uuid "6958a287-3b70-414d-afc9-965740ae06df")
 	)
 	(pad "" np_thru_hole circle
@@ -165,4 +165,15 @@
 		(uuid "c54665ab-f06e-45e7-a9ff-2bf03b98c5f0")
 	)
 	(embedded_fonts no)
+	(model "${KIPRJMOD}/FastStepper PCBLib.pretty/35RASMT4BHNTRX.STEP"
+		(offset
+			(xyz 3.5 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
 )

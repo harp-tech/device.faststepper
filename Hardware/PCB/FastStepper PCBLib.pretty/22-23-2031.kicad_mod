@@ -65,6 +65,16 @@
 		(uuid "cdb8daed-bd03-49ca-9ae8-57c9e7837838")
 	)
 	(fp_line
+		(start -3.81 -1.8)
+		(end 3.81 -1.8)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "40fcd1a2-202e-4300-ad6a-85cde94f871d")
+	)
+	(fp_line
 		(start -3.81 -1.27)
 		(end -3.81 -3.175)
 		(stroke
@@ -73,16 +83,6 @@
 		)
 		(layer "F.SilkS")
 		(uuid "45c331db-9ded-4347-a70c-480bb1ad07f1")
-	)
-	(fp_line
-		(start -3.81 -1.27)
-		(end 3.81 -1.27)
-		(stroke
-			(width 0.254)
-			(type solid)
-		)
-		(layer "F.SilkS")
-		(uuid "40fcd1a2-202e-4300-ad6a-85cde94f871d")
 	)
 	(fp_line
 		(start -3.81 3.175)
@@ -155,4 +155,15 @@
 		(uuid "a3f4b333-7ee6-4936-ae74-038cbf0ea628")
 	)
 	(embedded_fonts no)
+	(model "${KIPRJMOD}/FastStepper PCBLib.pretty/282834-3.STEP"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
 )
