@@ -1,4 +1,4 @@
-25714291602890776
+25716077926929599
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -59380,6 +59380,13 @@ One digit LED 7 segment SA39-11 SC39-11 SA39-12 SC39-12
 0
 10
 10
+FastStepper PCBLib
+20_155MH_5
+WEIDMUELLER CLAMP CONNECTOR
+
+0
+5
+5
 FastStepper PCBLib
 22-23-2031
 .100" (2.54mm) Center Header - 3 Pin

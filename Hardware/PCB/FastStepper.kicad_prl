@@ -45,10 +45,11 @@
       "pads",
       "zones",
       "drc_warnings",
+      "locked_item_shadows",
       "conflict_shadows",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_55555555_575555f5",
+    "visible_layers": "00000000_00000000_555555df_d75555f5",
     "zone_display_mode": 1
   },
   "git": {
@@ -90,18 +91,18 @@
       11
     ],
     "col_widths": [
-      222,
-      207,
-      136,
-      92,
-      136,
-      136,
-      136,
-      98,
-      136,
-      136,
-      136,
-      136
+      266,
+      248,
+      163,
+      110,
+      163,
+      163,
+      163,
+      118,
+      163,
+      163,
+      163,
+      163
     ],
     "custom_group_rules": [],
     "expanded_rows": [],

@@ -21,6 +21,7 @@
 		(at -3.81 5.08 0)
 		(unlocked yes)
 		(layer "F.Fab")
+		(hide yes)
 		(uuid "1e116d41-e3d2-4bae-afde-c093a810390b")
 		(effects
 			(font
@@ -54,6 +55,7 @@
 			)
 		)
 	)
+	(attr through_hole)
 	(fp_line
 		(start -3.81 -3.175)
 		(end 3.81 -3.175)
@@ -123,6 +125,50 @@
 		)
 		(layer "F.SilkS")
 		(uuid "7b58d18f-5b21-4c1e-aaf4-d3780d7ccdfa")
+	)
+	(fp_rect
+		(start -4 -3.35)
+		(end 4 3.35)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "a9159bc1-c614-4fd6-a9c9-14fce8b168bb")
+	)
+	(fp_line
+		(start -3.8 -1.8)
+		(end 3.75 -1.8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "9d41f8ed-4682-4928-bb4b-0f15c2f7787e")
+	)
+	(fp_rect
+		(start -3.8 -3.15)
+		(end 3.8 3.2)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "342e86c2-fdf3-487e-899c-ea871e8a44a5")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0.2 0.35 0)
+		(layer "F.Fab")
+		(uuid "21f69fc5-a6c9-456a-951a-46d137cd1e52")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.2)
+				(bold yes)
+			)
+		)
 	)
 	(pad "1" thru_hole oval
 		(at -2.54 0 90)

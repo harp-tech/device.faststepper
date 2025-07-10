@@ -17,6 +17,7 @@
 	(property "Value" "FIL_DLW21HN900SQ2L"
 		(at 5.5152 1.6064 0)
 		(layer "F.Fab")
+		(hide yes)
 		(uuid "2c989d3d-819a-48ba-bc90-a71e0317d405")
 		(effects
 			(font
@@ -219,6 +220,18 @@
 		(fill no)
 		(layer "F.Fab")
 		(uuid "345c6a63-1716-4823-8b70-14cbb38de7fc")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0.05 0)
+		(layer "F.Fab")
+		(uuid "a364c080-12ca-45d3-bb4e-26fb14f71433")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.125)
+				(bold yes)
+			)
+		)
 	)
 	(pad "1" smd rect
 		(at -0.85 0.4)

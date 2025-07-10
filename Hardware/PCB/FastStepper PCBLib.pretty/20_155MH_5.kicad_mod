@@ -1,14 +1,14 @@
-(footprint "90G-5"
+(footprint "20_155MH_5"
 	(version 20241229)
 	(generator "pcbnew")
 	(generator_version "9.0")
 	(layer "F.Cu")
 	(descr "WEIDMUELLER CLAMP CONNECTOR")
 	(property "Reference" "REF**"
-		(at -7 -7 0)
+		(at -9.75 -8 0)
 		(unlocked yes)
 		(layer "F.SilkS")
-		(uuid "f31af9fe-c162-44dc-9dca-1037a1e900f8")
+		(uuid "ca976d28-d33d-45de-bba6-14983123268a")
 		(effects
 			(font
 				(size 1.1684 1.1684)
@@ -17,11 +17,12 @@
 			(justify left bottom)
 		)
 	)
-	(property "Value" "90G-5"
-		(at -7 -1.75 0)
+	(property "Value" "20_155MH_5"
+		(at -5.25 1.95 0)
 		(unlocked yes)
 		(layer "F.Fab")
-		(uuid "17bb5584-8f12-4953-b90d-c780ef910fc6")
+		(hide yes)
+		(uuid "7830d493-5fb0-4ff9-8f66-4913fc34b35e")
 		(effects
 			(font
 				(size 1.1684 1.1684)
@@ -34,7 +35,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "5605728c-92d9-4895-8e4d-20cc9fe2b36f")
+		(uuid "c43382a0-3969-40f6-81d5-ccd8c0ee584d")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -46,7 +47,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "0e9bc579-833d-47b5-8077-df173b0c25a1")
+		(uuid "dce88633-6bcd-4215-a71d-3c632a1fc407")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -56,7 +57,7 @@
 	)
 	(fp_line
 		(start -9.35 -6.05)
-		(end -9.35 4.85)
+		(end -9.35 2.8)
 		(stroke
 			(width 0.2032)
 			(type solid)
@@ -65,8 +66,8 @@
 		(uuid "2d64f064-a359-441b-9480-e8a31b0bb414")
 	)
 	(fp_line
-		(start -9.35 4.85)
-		(end 9.35 4.85)
+		(start -9.35 2.8)
+		(end 9.35 2.8)
 		(stroke
 			(width 0.2032)
 			(type solid)
@@ -75,7 +76,7 @@
 		(uuid "9555d1ca-a487-4bf0-9a80-8e7cc57febbb")
 	)
 	(fp_line
-		(start 9.35 4.85)
+		(start 9.35 2.8)
 		(end 9.35 -6.05)
 		(stroke
 			(width 0.2032)
@@ -86,7 +87,7 @@
 	)
 	(fp_poly
 		(pts
-			(xy -7.525 4.9) (xy -6.475 4.9) (xy -6.475 1.225) (xy -7.525 1.225)
+			(xy -7.525 2.85) (xy -6.475 2.85) (xy -6.475 -0.825) (xy -7.525 -0.825)
 		)
 		(stroke
 			(width 0)
@@ -98,7 +99,7 @@
 	)
 	(fp_poly
 		(pts
-			(xy -4.025 4.9) (xy -2.975 4.9) (xy -2.975 1.225) (xy -4.025 1.225)
+			(xy -4.025 2.85) (xy -2.975 2.85) (xy -2.975 -0.825) (xy -4.025 -0.825)
 		)
 		(stroke
 			(width 0)
@@ -110,7 +111,7 @@
 	)
 	(fp_poly
 		(pts
-			(xy -0.525 4.9) (xy 0.525 4.9) (xy 0.525 1.225) (xy -0.525 1.225)
+			(xy -0.525 2.85) (xy 0.525 2.85) (xy 0.525 -0.825) (xy -0.525 -0.825)
 		)
 		(stroke
 			(width 0)
@@ -122,7 +123,7 @@
 	)
 	(fp_poly
 		(pts
-			(xy 2.975 4.9) (xy 4.025 4.9) (xy 4.025 1.225) (xy 2.975 1.225)
+			(xy 2.975 2.85) (xy 4.025 2.85) (xy 4.025 -0.825) (xy 2.975 -0.825)
 		)
 		(stroke
 			(width 0)
@@ -134,7 +135,7 @@
 	)
 	(fp_poly
 		(pts
-			(xy 6.475 4.9) (xy 7.525 4.9) (xy 7.525 1.225) (xy 6.475 1.225)
+			(xy 6.475 2.85) (xy 7.525 2.85) (xy 7.525 -0.825) (xy 6.475 -0.825)
 		)
 		(stroke
 			(width 0)
@@ -144,15 +145,39 @@
 		(layer "F.SilkS")
 		(uuid "5a7d7214-ae69-412f-85a8-ed78eed90862")
 	)
-	(fp_line
-		(start 9.35 -6.05)
-		(end -9.35 -6.05)
+	(fp_rect
+		(start -9.75 -8)
+		(end 9.75 3)
 		(stroke
-			(width 0.2032)
-			(type solid)
+			(width 0.05)
+			(type default)
 		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "957773fc-0ce6-416d-b965-49c073b4e76b")
+	)
+	(fp_rect
+		(start -9.55 -7.7)
+		(end 9.55 2.8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
 		(layer "F.Fab")
-		(uuid "0c2ad7b3-fabf-4b20-815a-6d1b3f99de4d")
+		(uuid "7aff44cd-b918-4c9b-8087-89b1ea9bea5b")
+	)
+	(fp_text user "${REFERENCE}"
+		(at -0.55 -1.9 0)
+		(layer "F.Fab")
+		(uuid "21e27a3d-0b1a-4f61-99c5-b6ed801fbfc6")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.2)
+				(bold yes)
+			)
+		)
 	)
 	(pad "1" thru_hole oval
 		(at -7 -5.25 90)
@@ -205,9 +230,21 @@
 		(uuid "dfb336b1-1062-427d-81b4-5453411dac3b")
 	)
 	(embedded_fonts no)
+	(model "${KIPRJMOD}/FastStepper PCBLib.pretty/20_155MH_4.STEP"
+		(hide yes)
+		(offset
+			(xyz -9 6.5 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -0 -180 -90)
+		)
+	)
 	(model "${KIPRJMOD}/FastStepper PCBLib.pretty/c-2350514-5-a-3d.stp"
 		(offset
-			(xyz 0 -2.5 3.5)
+			(xyz 0 -2.75 3.5)
 		)
 		(scale
 			(xyz 1 1 1)

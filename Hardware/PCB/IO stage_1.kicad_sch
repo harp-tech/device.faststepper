@@ -10152,10 +10152,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "7e5d47de-ab3d-4649-95a6-32494c2f4c11")
 		(property "Reference" "X1"
-			(at 45.72 210.82 0)
+			(at 45.974 215.392 0)
 			(effects
 				(font
 					(size 1.524 1.2954)
@@ -10168,9 +10167,10 @@
 				(font
 					(size 1.778 1.5113)
 				)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:90G-5"
+		(property "Footprint" "FastStepper PCBLib:20_155MH_5"
 			(at 45.72 223.52 0)
 			(effects
 				(font
