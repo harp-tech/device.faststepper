@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 2.09804,
-          "height": 3.5,
-          "width": 3.5
+          "drill": 0.45,
+          "height": 1.35,
+          "width": 0.9
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -58,7 +58,12 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "lib_footprint_mismatch|176625000|76212500|7ef6c533-1997-44e9-98e4-290fc0703804|00000000-0000-0000-0000-000000000000",
+          ""
+        ]
+      ],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
@@ -130,7 +135,7 @@
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
-        "min_microvia_diameter": 0.2,
+        "min_microvia_diameter": 0.1,
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 1,
         "min_silk_clearance": 0.0,
@@ -138,7 +143,7 @@
         "min_text_thickness": 0.0762,
         "min_through_hole_diameter": 0.22,
         "min_track_width": 0.2,
-        "min_via_annular_width": 0.1,
+        "min_via_annular_width": 0.15,
         "min_via_diameter": 0.5,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
@@ -227,6 +232,10 @@
         },
         {
           "diameter": 0.5,
+          "drill": 0.22
+        },
+        {
+          "diameter": 0.55,
           "drill": 0.22
         },
         {
