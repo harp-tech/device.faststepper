@@ -67,6 +67,7 @@
 			(psnegative no)
 			(psa4output no)
 			(plot_black_and_white yes)
+			(plotinvisibletext no)
 			(sketchpadsonfab no)
 			(plotpadnumbers no)
 			(hidednponfab no)
@@ -1353,7 +1354,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "conn 1x2"
+		(property "Value" "conn 1x3"
 			(at -3.81 5.08 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1391,7 +1392,7 @@
 				)
 			)
 		)
-		(property "MPN" "282834-2"
+		(property "MPN" "282834-3"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -1404,7 +1405,7 @@
 				)
 			)
 		)
-		(property "OEPSPN" "OEPS070020"
+		(property "OEPSPN" "OEPS070035"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -27064,7 +27065,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "WEIDMUELLER CLAMP CONNECTOR"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)

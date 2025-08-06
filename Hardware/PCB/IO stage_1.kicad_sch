@@ -8788,7 +8788,7 @@
 				)
 			)
 		)
-		(property "Value" "conn 1x2"
+		(property "Value" "conn 1x3"
 			(at 379.095 227.33 0)
 			(effects
 				(font
@@ -8823,7 +8823,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "282834-2"
+		(property "MPN" "282834-3"
 			(at 378.46 233.68 0)
 			(effects
 				(font
@@ -8833,7 +8833,7 @@
 				(hide yes)
 			)
 		)
-		(property "OEPSPN" "OEPS070020"
+		(property "OEPSPN" "OEPS070035"
 			(at 378.46 233.68 0)
 			(effects
 				(font
