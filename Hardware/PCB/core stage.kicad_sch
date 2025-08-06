@@ -886,7 +886,7 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" ""
+			(property "Reference" "X"
 				(at 10.16 0 0)
 				(effects
 					(font
@@ -904,7 +904,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Footprint" "VestibularH2:OSCILLATOR_3.2X2.5"
+			(property "Footprint" "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm"
 				(at 0 0 0)
 				(effects
 					(font
@@ -929,14 +929,6 @@
 						(size 1.27 1.27)
 					)
 					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
 				)
 			)
 			(symbol "OSCILLATOR_1_0"
@@ -1042,7 +1034,7 @@
 							)
 						)
 					)
-					(number "P$4"
+					(number "4"
 						(effects
 							(font
 								(size 0 0)
@@ -1060,7 +1052,7 @@
 							)
 						)
 					)
-					(number "P$1"
+					(number "1"
 						(effects
 							(font
 								(size 0 0)
@@ -1078,7 +1070,7 @@
 							)
 						)
 					)
-					(number "P$3"
+					(number "3"
 						(effects
 							(font
 								(size 0 0)
@@ -1096,7 +1088,7 @@
 							)
 						)
 					)
-					(number "P$2"
+					(number "2"
 						(effects
 							(font
 								(size 0 0)
@@ -1382,54 +1374,6 @@
 				)
 			)
 			(symbol "XMEGA-A4_AT-XMEGA-XXA4-AUTQFP44_1_0"
-				(polyline
-					(pts
-						(xy -25.4 43.18) (xy 25.4 43.18)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -25.4 -43.18) (xy -25.4 43.18)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 25.4 43.18) (xy 25.4 -43.18)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 25.4 -43.18) (xy -25.4 -43.18)
-					)
-					(stroke
-						(width 0.254)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(pin input line
 					(at -30.48 40.64 0)
 					(length 5.08)
@@ -2223,6 +2167,20 @@
 					)
 				)
 			)
+			(symbol "XMEGA-A4_AT-XMEGA-XXA4-AUTQFP44_1_1"
+				(rectangle
+					(start -25.4 43.18)
+					(end 25.4 -40.64)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type color)
+						(color 255 255 194 1)
+					)
+				)
+			)
 			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
@@ -2814,6 +2772,16 @@
 	)
 	(wire
 		(pts
+			(xy 36.83 29.21) (xy 40.64 29.21)
+		)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(uuid "2f97cd78-4ce9-4c88-bb05-914451955f4f")
+	)
+	(wire
+		(pts
 			(xy 95.25 170.18) (xy 95.25 167.64)
 		)
 		(stroke
@@ -2854,26 +2822,6 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 114.3) (xy 201.93 118.11)
-		)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(uuid "3bdf353a-5a11-4e07-bc07-7e2260f8f043")
-	)
-	(wire
-		(pts
-			(xy 201.93 129.54) (xy 209.55 129.54)
-		)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(uuid "3c6bed0b-3399-4fcb-9d74-221a9c2c8407")
-	)
-	(wire
-		(pts
 			(xy 102.87 43.18) (xy 102.87 40.64)
 		)
 		(stroke
@@ -2891,6 +2839,16 @@
 			(type solid)
 		)
 		(uuid "40d600e1-e8ed-4bca-bb9b-5d648ab996e7")
+	)
+	(wire
+		(pts
+			(xy 52.07 26.67) (xy 52.07 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41f7ad3d-3ed0-49cd-a399-cb4031da1d0c")
 	)
 	(wire
 		(pts
@@ -2924,7 +2882,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 125.73) (xy 201.93 129.54)
+			(xy 48.26 29.21) (xy 52.07 29.21)
 		)
 		(stroke
 			(width 0.1524)
@@ -3224,6 +3182,16 @@
 	)
 	(wire
 		(pts
+			(xy 36.83 26.67) (xy 36.83 29.21)
+		)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(uuid "966239c3-3b4f-4663-92d5-5766d59a4292")
+	)
+	(wire
+		(pts
 			(xy 191.77 129.54) (xy 196.85 129.54)
 		)
 		(stroke
@@ -3464,7 +3432,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 129.54) (xy 209.55 127)
+			(xy 201.93 129.54) (xy 201.93 128.27)
 		)
 		(stroke
 			(width 0.1524)
@@ -3802,6 +3770,28 @@
 		)
 		(uuid "fae60703-228e-44cc-b959-f5c715d208a1")
 	)
+	(global_label "CLK_2u"
+		(shape input)
+		(at 92.71 121.92 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 0.9957 0.9957)
+			)
+			(justify right)
+		)
+		(uuid "098258c2-087f-4023-8726-90418d21be0e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 84.9643 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "FTDI_RTS"
 		(shape input)
 		(at 181.61 104.14 0)
@@ -3859,28 +3849,6 @@
 		(uuid "148556be-7f58-4674-9581-e586d861206a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 93.6816 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "U_CLOCK_IN"
-		(shape input)
-		(at 92.71 121.92 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 0.9957 0.9957)
-			)
-			(justify right)
-		)
-		(uuid "17890345-648d-43d7-aacd-a73f0cbe7e5b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 81.4558 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4270,7 +4238,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0402"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 135.89 43.18 0)
 			(effects
 				(font
@@ -4307,13 +4275,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS020037"
+		(property "OEPSPN" "OEPS020037"
 			(at 135.89 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -4361,7 +4328,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 186.69 140.97 0)
 			(effects
 				(font
@@ -4388,7 +4355,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 186.69 140.97 0)
 			(effects
 				(font
@@ -4398,13 +4365,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 186.69 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -4803,7 +4769,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:CHIP-LED0603"
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 135.89 31.75 0)
 			(effects
 				(font
@@ -4840,13 +4806,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS030005"
-			(at 135.89 31.75 0)
+		(property "OEPSPN" "OEPS030005"
+			(at 135.89 31.75 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -4874,7 +4839,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "2601c390-ea39-49c7-bdef-66a1f304825e")
 		(property "Reference" "#GND36"
 			(at 196.85 124.46 0)
@@ -4886,7 +4850,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 196.85 129.54 0)
+			(at 192.786 127 0)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -4958,7 +4922,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TQFP44"
+		(property "Footprint" "Package_QFP:TQFP-44_10x10mm_P0.8mm"
 			(at 146.05 114.3 0)
 			(effects
 				(font
@@ -4985,7 +4949,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "ATXMEGA32A4U-AUR"
+		(property "MPN" "ATXMEGA32A4U-A"
 			(at 146.05 114.3 0)
 			(effects
 				(font
@@ -4995,13 +4959,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS080012"
+		(property "OEPSPN" "OEPS080012"
 			(at 146.05 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -5351,7 +5314,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "42e7bcf3-9a46-4bfe-9a26-2fc08f4ea846")
@@ -5373,7 +5336,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TP11R"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 107.95 88.9 0)
 			(effects
 				(font
@@ -5393,6 +5356,15 @@
 		)
 		(property "Description" ""
 			(at 107.95 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OEPSPN" ""
+			(at 107.95 88.9 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5486,7 +5458,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "5816d44b-f0c2-4f3c-a2f3-d2ed262bed4a")
 		(property "Reference" "C15"
@@ -5507,7 +5479,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0603K"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 92.71 34.29 0)
 			(effects
 				(font
@@ -5534,7 +5506,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "DNI"
+		(property "MPN" "n.a."
 			(at 92.71 34.29 0)
 			(effects
 				(font
@@ -5544,13 +5516,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "DNI"
+		(property "OEPSPN" "n.a."
 			(at 92.71 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -5732,7 +5703,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 95.25 163.83 0)
 			(effects
 				(font
@@ -5759,7 +5730,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 95.25 163.83 0)
 			(effects
 				(font
@@ -5769,13 +5740,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 95.25 163.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -5801,7 +5771,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "6e8bd946-6450-4dc4-bf7b-3e4eb03a6e4f")
 		(property "Reference" "R7"
@@ -5822,7 +5792,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0402"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 102.87 48.26 0)
 			(effects
 				(font
@@ -5849,7 +5819,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "DNI"
+		(property "MPN" "n.a."
 			(at 102.87 48.26 0)
 			(effects
 				(font
@@ -5859,13 +5829,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "DNI"
+		(property "OEPSPN" "n.a."
 			(at 102.87 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -5912,7 +5881,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 163.83 46.99 0)
 			(effects
 				(font
@@ -5949,13 +5918,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010011"
+		(property "OEPSPN" "OEPS010011"
 			(at 163.83 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -5980,7 +5948,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "7874acdb-643f-45e2-93c0-2d00ca93b985")
@@ -6001,7 +5969,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TP11R"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 107.95 91.44 0)
 			(effects
 				(font
@@ -6021,6 +5989,15 @@
 		)
 		(property "Description" ""
 			(at 107.95 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OEPSPN" ""
+			(at 107.95 91.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6069,7 +6046,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0402"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 163.83 27.94 0)
 			(effects
 				(font
@@ -6096,7 +6073,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "CRCW040210K0FKED"
+		(property "MPN" "ERJ-2RKF1002X"
 			(at 163.83 27.94 0)
 			(effects
 				(font
@@ -6106,13 +6083,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS020030"
+		(property "OEPSPN" "OEPS020013"
 			(at 163.83 27.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -6138,7 +6114,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "7daa4e1d-90ab-4f17-9911-cdcb48502206")
 		(property "Reference" "R9"
@@ -6157,7 +6133,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0402"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 85.09 25.4 0)
 			(effects
 				(font
@@ -6184,7 +6160,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "DNI"
+		(property "MPN" "n.a."
 			(at 85.09 25.4 0)
 			(effects
 				(font
@@ -6194,13 +6170,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "DNI"
-			(at 85.09 25.4 0)
+		(property "OEPSPN" "n.a."
+			(at 85.09 25.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -6292,7 +6267,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -6315,7 +6290,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TP11R"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 107.95 119.38 0)
 			(effects
 				(font
@@ -6335,6 +6310,15 @@
 		)
 		(property "Description" ""
 			(at 107.95 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OEPSPN" ""
+			(at 107.95 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6383,7 +6367,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 201.93 140.97 0)
 			(effects
 				(font
@@ -6410,7 +6394,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 201.93 140.97 0)
 			(effects
 				(font
@@ -6420,13 +6404,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 201.93 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -6447,8 +6430,8 @@
 	)
 	(symbol
 		(lib_id "Device:FerriteBead")
-		(at 201.93 121.92 0)
-		(mirror y)
+		(at 44.45 29.21 90)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6456,7 +6439,7 @@
 		(dnp no)
 		(uuid "8d361654-5aa7-42ef-ba54-9a17b8b53b22")
 		(property "Reference" "L2"
-			(at 202.946 124.714 0)
+			(at 40.132 31.242 90)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -6465,7 +6448,7 @@
 			)
 		)
 		(property "Value" "40R@100MHz"
-			(at 205.74 125.222 0)
+			(at 47.752 25.4 0)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -6474,8 +6457,8 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0805"
-			(at 201.93 121.92 0)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 44.45 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6484,7 +6467,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 201.93 121.92 0)
+			(at 44.45 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6493,7 +6476,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 201.93 121.92 0)
+			(at 44.45 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6502,7 +6485,7 @@
 			)
 		)
 		(property "MPN" "MI0805K400R-10"
-			(at 201.93 121.92 0)
+			(at 44.45 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6511,13 +6494,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS040003"
-			(at 201.93 121.92 0)
+		(property "OEPSPN" "OEPS040003"
+			(at 44.45 29.21 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -6538,7 +6520,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V8")
-		(at 209.55 127 0)
+		(at 201.93 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6546,7 +6528,7 @@
 		(dnp no)
 		(uuid "96368e6e-bdef-4490-8378-3d2a37a84b26")
 		(property "Reference" "#PWR02"
-			(at 209.55 130.81 0)
+			(at 201.93 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6555,7 +6537,7 @@
 			)
 		)
 		(property "Value" "+3V3_u"
-			(at 210.566 122.682 0)
+			(at 202.946 123.952 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6563,7 +6545,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 209.55 127 0)
+			(at 201.93 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6572,7 +6554,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 209.55 127 0)
+			(at 201.93 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6581,7 +6563,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3_u\""
-			(at 209.55 127 0)
+			(at 201.93 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6761,7 +6743,7 @@
 				)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:2X03"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
 			(at 173.99 38.1 0)
 			(effects
 				(font
@@ -6788,7 +6770,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "609-3210-ND"
+		(property "MPN" "PR20203VBDN"
 			(at 173.99 38.1 0)
 			(effects
 				(font
@@ -6798,13 +6780,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS070015"
+		(property "OEPSPN" "OEPS070124"
 			(at 173.99 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -6841,7 +6822,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "a975d56f-1c21-447f-9da4-4a2b09ef7062")
@@ -6862,7 +6843,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TP11R"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 107.95 109.22 0)
 			(effects
 				(font
@@ -6882,6 +6863,15 @@
 		)
 		(property "Description" ""
 			(at 107.95 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OEPSPN" ""
+			(at 107.95 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6911,7 +6901,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b02e0781-194a-4702-a644-ff8aa4742dea")
-		(property "Reference" "OSC1"
+		(property "Reference" "X6"
 			(at 116.84 163.195 0)
 			(effects
 				(font
@@ -6929,7 +6919,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:OSCILLATOR_3.2X2.5"
+		(property "Footprint" "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm"
 			(at 107.95 165.1 0)
 			(effects
 				(font
@@ -6947,7 +6937,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "XTAL OSC TCXO 32.0000MHZ HCMOS"
 			(at 107.95 165.1 0)
 			(effects
 				(font
@@ -6966,32 +6956,31 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS080018"
+		(property "OEPSPN" "OEPS080018"
 			(at 107.95 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
-		(pin "P$1"
+		(pin "2"
 			(uuid "fc05175a-c3a7-4191-826b-644946bae11f")
 		)
-		(pin "P$4"
+		(pin "4"
 			(uuid "9508b1c4-a8f9-413e-94e2-ee6b9ae08a6b")
 		)
-		(pin "P$3"
+		(pin "3"
 			(uuid "44d021ac-cb0e-4c26-aa7c-fd8404a50930")
 		)
-		(pin "P$2"
+		(pin "1"
 			(uuid "2b29c16b-a0fc-4606-b9b7-046935f0fe85")
 		)
 		(instances
 			(project "FastStepper"
 				(path "/7345d9dc-7969-46b6-9229-988073b8033c/028c691a-8325-4757-adb7-0d190022b2ed"
-					(reference "OSC1")
+					(reference "X6")
 					(unit 1)
 				)
 			)
@@ -7003,7 +6992,7 @@
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -7025,7 +7014,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:TP11R"
+		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
 			(at 184.15 81.28 0)
 			(effects
 				(font
@@ -7045,6 +7034,15 @@
 		)
 		(property "Description" ""
 			(at 184.15 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OEPSPN" ""
+			(at 184.15 81.28 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7093,7 +7091,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 196.85 140.97 0)
 			(effects
 				(font
@@ -7120,7 +7118,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 196.85 140.97 0)
 			(effects
 				(font
@@ -7130,13 +7128,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 196.85 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -7157,7 +7154,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 201.93 114.3 0)
+		(at 36.83 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7166,7 +7163,7 @@
 		(fields_autoplaced yes)
 		(uuid "bf7e829b-b117-4654-9e11-fe15acd1944f")
 		(property "Reference" "#+3V011"
-			(at 201.93 114.3 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7175,7 +7172,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 201.93 109.22 0)
+			(at 36.83 21.59 0)
 			(effects
 				(font
 					(size 1.778 1.5113)
@@ -7183,7 +7180,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 201.93 114.3 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7192,7 +7189,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 201.93 114.3 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7201,7 +7198,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 201.93 114.3 0)
+			(at 36.83 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7288,6 +7285,72 @@
 		)
 	)
 	(symbol
+		(lib_id "FastStepper SymbLib:+3.3V_u")
+		(at 52.07 26.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cdbf530c-413e-4348-ab76-198da16eb640")
+		(property "Reference" "#PWR011"
+			(at 52.07 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V_u"
+			(at 52.07 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 52.07 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 52.07 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V_u\""
+			(at 52.07 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0a81cf2e-ced5-4b44-8969-21f1632aaa57")
+		)
+		(instances
+			(project "FastStepper"
+				(path "/7345d9dc-7969-46b6-9229-988073b8033c/028c691a-8325-4757-adb7-0d190022b2ed"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GNDD")
 		(at 201.93 147.32 0)
 		(mirror y)
@@ -7361,7 +7424,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "de7a220e-d248-4aa8-b0a5-dde09c222434")
 		(property "Reference" "R4"
@@ -7382,7 +7445,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0402"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 102.87 33.02 0)
 			(effects
 				(font
@@ -7409,7 +7472,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "DNI"
+		(property "MPN" "n.a."
 			(at 102.87 33.02 0)
 			(effects
 				(font
@@ -7419,13 +7482,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "DNI"
+		(property "OEPSPN" "n.a."
 			(at 102.87 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -7473,7 +7535,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 191.77 140.97 0)
 			(effects
 				(font
@@ -7500,7 +7562,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 191.77 140.97 0)
 			(effects
 				(font
@@ -7510,13 +7572,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 191.77 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -7630,7 +7691,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:R0805"
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
 			(at 196.85 109.22 0)
 			(effects
 				(font
@@ -7667,13 +7728,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS040003"
+		(property "OEPSPN" "OEPS040003"
 			(at 196.85 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
@@ -7719,7 +7779,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "FastStepper PCBLib:C0402K"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 196.85 120.65 0)
 			(effects
 				(font
@@ -7746,7 +7806,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "C1005X7R1H104K050BB"
+		(property "MPN" "CGA2B3X7R1H104K050BB"
 			(at 196.85 120.65 0)
 			(effects
 				(font
@@ -7756,13 +7816,12 @@
 				(hide yes)
 			)
 		)
-		(property "OEPS" "OEPS010004"
+		(property "OEPSPN" "OEPS010016"
 			(at 196.85 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left bottom)
 				(hide yes)
 			)
 		)
