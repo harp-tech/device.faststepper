@@ -1,10 +1,11 @@
-### Footprint positions - created on 2025-07-08T16:49:54+0100 ###
+### Footprint positions - created on 2025-08-08T15:53:03+0100 ###
 ### Printed by KiCad version 9.0.2
 ## Unit = mm, Angle = deg.
 ## Side : bottom
 # Ref     Val          Package                 PosX       PosY       Rot  Side
 C1        100nF        C_0402_1005Metric    17.7980    62.7674  -90.0000  bottom
 C2        4.7nF        C_0402_1005Metric    59.9789    72.5562  180.0000  bottom
+C15       DNI          C_0603_1608Metric    23.7000    56.5194   90.0000  bottom
 C16       100nF        C_0402_1005Metric    29.0000    44.6194  -90.0000  bottom
 C23       100nF        C_0402_1005Metric    59.9789    73.9250    0.0000  bottom
 C41       15nF         C_0402_1005Metric    20.8000    66.0194   90.0000  bottom
@@ -15,9 +16,14 @@ D6        PESD5V0L2BT  SOT-23               48.7989    72.8000  180.0000  bottom
 IC10      THS4281DBVT  SOT-23-5             14.1000    64.3194    0.0000  bottom
 L3        40R@100MHz   R_0805_2012Metric    31.9000    45.5194  180.0000  bottom
 R3        1M           R_0402_1005Metric    59.9989    71.1875    0.0000  bottom
+R4        DNI          R_0402_1005Metric    24.8772    52.5966   90.0000  bottom
+R7        DNI          R_0402_1005Metric    23.0240    52.5914  -90.0000  bottom
 R8        10k          R_0402_1005Metric     9.3670    72.8153    0.0000  bottom
+R9        DNI          R_0402_1005Metric    26.6000    55.6194    0.0000  bottom
 R17       10k          R_0402_1005Metric    18.4000    66.0194   90.0000  bottom
 R19       10k          R_0402_1005Metric    23.0000    66.0194  -90.0000  bottom
 R20       24k          R_0402_1005Metric    10.8000    63.4194  -90.0000  bottom
 R21       15k          R_0402_1005Metric    10.8000    67.3194  -90.0000  bottom
+R28       5.1k         R_0402_1005Metric    57.6489    70.8500  -90.0000  bottom
+R29       5.1k         R_0402_1005Metric    54.3989    75.4000   90.0000  bottom
 ## End
