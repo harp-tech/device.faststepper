@@ -5516,7 +5516,7 @@
 				(hide yes)
 			)
 		)
-		(property "OEPSPN" "n.a."
+		(property "OEPSPN" "OEPS000000"
 			(at 92.71 34.29 0)
 			(effects
 				(font
@@ -5829,7 +5829,7 @@
 				(hide yes)
 			)
 		)
-		(property "OEPSPN" "n.a."
+		(property "OEPSPN" "OEPS000000"
 			(at 102.87 48.26 0)
 			(effects
 				(font
@@ -6170,7 +6170,7 @@
 				(hide yes)
 			)
 		)
-		(property "OEPSPN" "n.a."
+		(property "OEPSPN" "OEPS000000"
 			(at 85.09 25.4 90)
 			(effects
 				(font
@@ -7482,7 +7482,7 @@
 				(hide yes)
 			)
 		)
-		(property "OEPSPN" "n.a."
+		(property "OEPSPN" "OEPS000000"
 			(at 102.87 33.02 0)
 			(effects
 				(font

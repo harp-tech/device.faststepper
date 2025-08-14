@@ -1,4 +1,4 @@
-### Footprint positions - created on 2025-07-08T16:49:54+0100 ###
+### Footprint positions - created on 2025-08-08T15:53:03+0100 ###
 ### Printed by KiCad version 9.0.2
 ## Unit = mm, Angle = deg.
 ## Side : top
@@ -37,6 +37,7 @@ C36       100nF             C_0402_1005Metric                            53.2489
 C37       100nF             C_0402_1005Metric                            46.6039    35.6550    0.0000  top
 C38       100nF             C_0402_1005Metric                            10.8708    36.2000  -90.0000  top
 C39       4.7uF             C_0603_1608Metric                             8.6989    33.1000  -90.0000  top
+C40       100nF             C_0402_1005Metric                            45.4189    77.0000    0.0000  top
 D1        ESD9B3            D_SOD-923                                    58.3989    46.4000    0.0000  top
 D2        ESD9B3            D_SOD-923                                    56.6989    58.7500  180.0000  top
 D3        ESD9B3            D_SOD-923                                    52.9989    46.0000  180.0000  top
