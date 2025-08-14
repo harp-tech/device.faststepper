@@ -30910,7 +30910,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "tbd"
+		(property "Value" "5.1k"
 			(at 0 -1.17 90)
 			(layer "B.Fab")
 			(hide yes)
@@ -30949,7 +30949,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "TBD"
+		(property "MPN" "ERJ-2RKF5101X"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -30963,7 +30963,7 @@
 				(justify mirror)
 			)
 		)
-		(property "OEPSPN" "TBD"
+		(property "OEPSPN" "OEPS020173"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -34827,7 +34827,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "tbd"
+		(property "Value" "5.1k"
 			(at 0 -1.17 90)
 			(layer "B.Fab")
 			(hide yes)
@@ -34866,7 +34866,7 @@
 				(justify mirror)
 			)
 		)
-		(property "MPN" "TBD"
+		(property "MPN" "ERJ-2RKF5101X"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -34880,7 +34880,7 @@
 				(justify mirror)
 			)
 		)
-		(property "OEPSPN" "TBD"
+		(property "OEPSPN" "OEPS020173"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "B.Fab")
