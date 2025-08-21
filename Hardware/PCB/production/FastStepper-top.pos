@@ -1,5 +1,5 @@
-### Footprint positions - created on 2025-08-08T15:53:03+0100 ###
-### Printed by KiCad version 9.0.2
+### Footprint positions - created on 2025-08-21T01:17:05+0100 ###
+### Printed by KiCad version 9.0.0
 ## Unit = mm, Angle = deg.
 ## Side : top
 # Ref     Val               Package                                         PosX       PosY       Rot  Side
@@ -89,8 +89,16 @@ R26       100k              R_0402_1005Metric                            34.9989
 R27       100k              R_0402_1005Metric                            34.9989    76.3000   90.0000  top
 R34       10k               R_0402_1005Metric                            34.9051    60.1222    0.0000  top
 STATE0    GREEN_LED         LED_0603_1608Metric                          22.2080    56.9714  -90.0000  top
+SV2       PINHD-2X3         PinHeader_2x03_P2.54mm_Vertical              37.7489    52.7500  180.0000  top
 U1        74LVC1G157        TSOP-6_1.65x3.05mm_P0.95mm                   50.1589    61.5500    0.0000  top
 U2        THVD1450D         SOIC-8_3.9x4.9mm_P1.27mm                     39.9989    75.0500    0.0000  top
 U3        ADUM1201BRZ       SOIC-8_3.9x4.9mm_P1.27mm                     43.7739    31.7050    0.0000  top
+X1        conn_1x5_2        20_155MH_5                                   60.5989    15.2250   90.0000  top
+X2        conn_1x5          22-23-2051                                    3.4000    54.1934  -90.0000  top
+X3        conn_1x3          22-23-2031                                    3.2000    75.3934  -90.0000  top
+X4        conn_1x3          22-23-2031                                    3.3560    66.5914  -90.0000  top
+X5        conn_1x5          22-23-2051                                    3.4000    39.0854  -90.0000  top
 X6        OSCILLATOR        Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm    31.0489    56.1750  180.0000  top
+X9        conn_1x5          22-23-2051                                    3.4000    13.6824  -90.0000  top
+X10       conn_1x3          22-23-2031                                    3.4000    26.3824  -90.0000  top
 ## End

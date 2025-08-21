@@ -1421,7 +1421,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/5df37b66-e4c7-4fe9-9114-348a0fc9587d")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -3.81 3.175)
 			(end -3.81 -1.27)
@@ -5037,7 +5037,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/01f7d468-2205-47e0-a609-5d0a11bb5427")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -3.81 3.175)
 			(end -3.81 -1.27)
@@ -6711,7 +6711,7 @@
 		(path "/028c691a-8325-4757-adb7-0d190022b2ed/a6970918-1788-4fd0-a90f-a2cd67073906")
 		(sheetname "/core stage/")
 		(sheetfile "core stage.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start 3.92 -1.38)
 			(end 3.92 6.46)
@@ -19689,7 +19689,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/0a0a507d-8526-4503-be74-d483340da4f9")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -3.81 3.175)
 			(end -3.81 -1.27)
@@ -23226,7 +23226,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/3f5ea271-3474-41fb-9d9c-6eb5826f087e")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -6.35 3.175)
 			(end -6.35 -1.27)
@@ -25693,7 +25693,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/800a6ca2-c1ae-427a-acb3-d524ef007caa")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -6.35 3.175)
 			(end -6.35 -1.27)
@@ -27333,7 +27333,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/7e5d47de-ab3d-4649-95a6-32494c2f4c11")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -9.35 -6.05)
 			(end -9.35 2.8)
@@ -27971,7 +27971,7 @@
 		(path "/d7800fff-6547-4760-99b1-6b8914c1f1f6/7b56c98e-ecea-4461-ba15-fff34ce87d20")
 		(sheetname "/IO stage/")
 		(sheetfile "IO stage_1.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole)
 		(fp_line
 			(start -6.35 3.175)
 			(end -6.35 -1.27)
